@@ -1,8 +1,8 @@
 "use client";
 import { useContext, useState, useEffect, useRef } from "react";
-import { BearerContext } from "../lib/IGDBBearerTokenContext";
-import FetchGames from "../lib/FetchGames";
+import { BearerContext } from "@/lib/IGDBBearerTokenContext";
 import Link from "next/link";
+import FetchGames from "@/lib/FetchGames";
 
 export default function SearchBar() {
   const [bearer, setBearer] = useContext(BearerContext);
@@ -52,36 +52,32 @@ export default function SearchBar() {
     <>
       <div
         ref={searchRef}
-        className="search-bar bg-slate-300 rounded-lg p-2 relative"
+        className="search-bar w-2/6 bg-slate-300 rounded-lg p-2 relative"
       >
-        <p>Current Bearer Token: {bearer}</p>
+        <p className="text-xs">For testing, Bearer Token: {bearer}</p>
         <form onSubmit={searchGames}>
           <input
             type="text"
             id="searchQuery"
             placeholder="Search games"
-            className="p-1 rounded"
+            className="p-1 rounded w-full"
             onChange={searchGames}
             onFocus={() => setResultIsOpen(games.length > 0)}
           />
         </form>
         {resultIsOpen &&
           (games.length > 0 ? (
-            <div className="search-results absolute flex flex-col gap-1 mt-2 max-h-60 overflow-scroll bg-slate-800 text-white rounded">
-              {games.map(
-                (game) => (
-                  console.log(game),
-                  (
-                    <Link
-                      key={game.id}
-                      href={`/games/${game.slug}`}
-                      className="text-sm p-2 search-bar-link"
-                    >
-                      {game.name}
-                    </Link>
-                  )
-                )
-              )}
+            <div className="search-results absolute flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
+              {games.map((game) => (
+                <Link
+                  key={game.id}
+                  href={`/games/${game.slug}`}
+                  className="text-sm p-2 search-bar-link"
+                  onClick={() => setResultIsOpen(false)}
+                >
+                  {game.name}
+                </Link>
+              ))}
             </div>
           ) : (
             <p>No results found</p>
