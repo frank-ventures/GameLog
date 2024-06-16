@@ -1,12 +1,14 @@
-import GameDisplay from "./components/gameDisplay";
+import GameDisplay from "../components/gameDisplay";
 
 export default function Home() {
   return (
     <>
-      <h1>h1 Hello</h1>
-      <h2>h2 Hello</h2>
-      <h3>h3 Hello</h3>
-      <p>I am a paragraph on the page, and below here are some game results</p>
+      <h1>GameLog</h1>
+      <h2>Your Personal Games Journal</h2>
+      <h3>Find your games</h3>
+      <h3>Make some notes</h3>
+      <h3>Never forget what youre doing again</h3>
+
       <div className="test-container">
         <GameDisplay />
       </div>

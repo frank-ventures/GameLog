@@ -2,6 +2,7 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { BearerContext } from "../lib/IGDBBearerTokenContext";
 import FetchGames from "../lib/FetchGames";
+import Link from "next/link";
 
 export default function SearchBar() {
   const [bearer, setBearer] = useContext(BearerContext);
@@ -67,11 +68,20 @@ export default function SearchBar() {
         {resultIsOpen &&
           (games.length > 0 ? (
             <div className="search-results absolute flex flex-col gap-1 mt-2 max-h-60 overflow-scroll bg-slate-800 text-white rounded">
-              {games.map((game) => (
-                <div key={game.id} className="p-2">
-                  <p className="text-sm">{game.name}</p>
-                </div>
-              ))}
+              {games.map(
+                (game) => (
+                  console.log(game),
+                  (
+                    <Link
+                      key={game.id}
+                      href={`/games/${game.slug}`}
+                      className="text-sm p-2 search-bar-link"
+                    >
+                      {game.name}
+                    </Link>
+                  )
+                )
+              )}
             </div>
           ) : (
             <p>No results found</p>
