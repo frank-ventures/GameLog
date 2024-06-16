@@ -2,6 +2,8 @@
 
 import { BearerContext } from "@/lib/IGDBBearerTokenContext";
 import FetchIndividualGame from "@/lib/IndividualGame";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 export default function IndividualGamePage({ params }) {
@@ -31,7 +33,15 @@ export default function IndividualGamePage({ params }) {
   console.log("IndividualGamePage game: ", game);
   return (
     <>
-      <h2>Hello I am an individual game page</h2>
+      {game ? (
+        <>
+          <h2>{game.name}</h2>
+          <p>{game.summary}</p>
+          <Link href={`${game.url}`}>See more on IGDB</Link>
+        </>
+      ) : (
+        notFound()
+      )}
     </>
   );
 }

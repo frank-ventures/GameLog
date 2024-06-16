@@ -61,14 +61,15 @@ export default function SearchBar() {
             id="searchQuery"
             placeholder="Search games"
             className="p-1 rounded w-full"
+            autoComplete="off"
             onChange={searchGames}
             onFocus={() => setResultIsOpen(games.length > 0)}
           />
         </form>
-        {resultIsOpen &&
-          (games.length > 0 ? (
-            <div className="search-results absolute flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
-              {games.map((game) => (
+        {resultIsOpen ? (
+          <div className="search-results absolute flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
+            {games.length > 0 ? (
+              games.map((game) => (
                 <Link
                   key={game.id}
                   href={`/games/${game.slug}`}
@@ -77,11 +78,12 @@ export default function SearchBar() {
                 >
                   {game.name}
                 </Link>
-              ))}
-            </div>
-          ) : (
-            <p>No results found</p>
-          ))}
+              ))
+            ) : (
+              <p className="p-2">No results found</p>
+            )}
+          </div>
+        ) : null}
       </div>
     </>
   );
