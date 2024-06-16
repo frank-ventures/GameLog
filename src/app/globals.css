@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- --- This next @layers bit lets us control the font-sizing across the site --- --- */
+@layer components {
+  h1,
+  .h1 {
+    @apply text-5xl font-semibold leading-snug;
+  }
+
+  h2,
+  .h2 {
+    @apply text-3xl font-semibold leading-relaxed;
+  }
+
+  h3,
+  .h3 {
+    @apply text-xl font-medium leading-relaxed tracking-tight;
+  }
+
+  p,
+  .p {
+    @apply text-base leading-relaxed;
+  }
+}
+
+/* --- --- --- ---  */
+.logo h3 {
+  text-shadow: 2px 2px 2px black;
+}
