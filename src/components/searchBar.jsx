@@ -75,7 +75,7 @@ export default function SearchBar() {
         setResultIsOpen(false);
         setGames([]);
       }
-    }, 100);
+    }, 180);
 
     return () => clearTimeout(timer);
   }, [bearer, userQuery]);
