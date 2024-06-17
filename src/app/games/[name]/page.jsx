@@ -6,6 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
+import FetchScreenshots from "@/lib/FetchScreenshots";
 
 export default function IndividualGamePage({ params }) {
   const [bearer, setBearer] = useContext(BearerContext);
@@ -19,13 +20,27 @@ export default function IndividualGamePage({ params }) {
     if (bearer && gameName) {
       try {
         const newGame = await FetchIndividualGame(bearer, gameName);
-        setGame(newGame.thisGame);
-        setImages(newGame.images);
+        setGame(newGame);
       } catch (error) {
         console.error("Error fetching games:", error);
       }
     } else {
       setGame([]);
+    }
+
+    getScreenshots();
+  }
+
+  async function getScreenshots(bearer, game) {
+    if (bearer && game) {
+      try {
+        const newScreenshots = await FetchScreenshots(bearer, game);
+        setImages(newScreenshots);
+      } catch (error) {
+        console.error("Error fetching games:", error);
+      }
+    } else {
+      setImages([]);
     }
   }
 
@@ -33,8 +48,13 @@ export default function IndividualGamePage({ params }) {
     getGame(bearer, gameName);
   }, [bearer, gameName]);
 
+  useEffect(() => {
+    getScreenshots(bearer, game);
+  }, [game]);
+
   console.log("IndividualGamePage game: ", game);
   console.log("IndividualGamePage images: ", images);
+
   return (
     <>
       {game ? (
@@ -44,7 +64,7 @@ export default function IndividualGamePage({ params }) {
           <div className="screenshots-box border h-auto p-1 text-center">
             <h3>Screenies</h3>
             <div className="screenshots-container flex flex-row overflow-scroll gap-4 p-1 border">
-              {images.map((image) => (
+              {images?.map((image) => (
                 <Image
                   key={image.id}
                   src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.jpg`}
