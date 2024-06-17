@@ -13,7 +13,7 @@ export default async function FetchGames(bearer, userQuery, limit) {
       "Authorization": `Bearer ${bearer}`,
       "Content-Type": "application/json"
     },
-    body: `${body} ${bodyLimit}`
+    body: `${body} ${bodyLimit} `
   });
 
   if (!response.ok) {
