@@ -1,10 +1,11 @@
 "use server";
 
-export default async function FetchGames(bearer, userQuery, limit) {
+import FetchScreenshots from "./FetchScreenshots";
+
+export default async function FetchIndividualGame(bearer, gameName) {
   const clientId = process.env.TWITCH_TV_ID;
 
-  const body = userQuery ? `fields *; search "${userQuery}";` : "fields *;";
-  const bodyLimit = limit ? `limit ${limit};` : "limit 10;";
+  const body = gameName ? `fields *; where slug ="${gameName}";` : "fields *;";
 
   const response = await fetch("https://api.igdb.com/v4/games", {
     method: "POST",
@@ -13,7 +14,7 @@ export default async function FetchGames(bearer, userQuery, limit) {
       "Authorization": `Bearer ${bearer}`,
       "Content-Type": "application/json"
     },
-    body: `${body} ${bodyLimit}`
+    body: `${body}`
   });
 
   if (!response.ok) {
@@ -21,6 +22,8 @@ export default async function FetchGames(bearer, userQuery, limit) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const games = await response.json();
-  return games;
+  const gamesarray = await response.json();
+  const thisGame = gamesarray[0];
+
+  return thisGame;
 }

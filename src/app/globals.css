@@ -25,7 +25,26 @@
   }
 }
 
-/* --- --- --- ---  */
+/* --- --- Globals --- ---  */
+:root {
+  --second-background-colour: purple;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* --- --- ** ** --- ---  */
+
+/* --- --- Header --- ---  */
 .logo h3 {
   text-shadow: 2px 2px 2px black;
 }
+
+/* -- Search Bar -- */
+.search-bar-link:hover {
+  background-color: var(--second-background-colour);
+}
+
+/* --- --- ** ** --- ---  */
