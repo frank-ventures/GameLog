@@ -9,7 +9,10 @@ export default function SearchBar() {
   const [games, setGames] = useState([]);
   const [resultIsOpen, setResultIsOpen] = useState(false);
   const [userQuery, setUserQuery] = useState("");
-  //searchRef is uses the useRef hook to reference the div containing the search bar and results, so we can handle if a user clicks away from the search bar:
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [search, setSearch] = useState("");
+
+  //searchRef uses the useRef hook to reference the div containing the search bar and results, so we can handle if a user clicks away from the search bar:
   const searchRef = useRef(null);
 
   // async function searchGames(event) {
@@ -41,6 +44,42 @@ export default function SearchBar() {
     }
   };
 
+  // this functions handles Arrow Key press events, to let a user scroll through the list
+  const handleKeyDown = (e) => {
+    if (e.target.value.length === 0) {
+      setCurrentIndex(0);
+      return;
+    }
+    if (e.key === "Enter") {
+      console.log(
+        "Enter key pressed: you can run function instead of this log statement"
+      );
+    }
+    if (e.key === "ArrowDown") {
+      // increment the index by 1 and set the search value to the name of the game at that index
+      setCurrentIndex(currentIndex + 1);
+
+      setSearch(games[currentIndex].name);
+      console.log("down arrow pressed", search, currentIndex);
+      if (currentIndex === games.length - 1) {
+        // if we reached the end of the list, reset the index to 0 to restart from the beginning
+        setCurrentIndex(0);
+      }
+    }
+    if (e.key === "ArrowUp") {
+      // increment the index by 1 and set the search value to the name of the game at that index
+      setCurrentIndex(currentIndex - 1);
+
+      setSearch(games[currentIndex].name);
+      console.log("up arrow pressed", search, currentIndex);
+      // if (currentIndex === games.length - 1) {
+      //   // if we reached the end of the list, reset the index to 0 to restart from the beginning
+      //   setCurrentIndex(0);
+      // }
+    }
+    return;
+  };
+
   // Adds an event listener for mousedown events to call handleClickOutside, and cleans up the event listener when the component is unmounted:
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -51,6 +90,7 @@ export default function SearchBar() {
 
   // This useEffect handles the search function, but only starts after the user has finished typing:
   useEffect(() => {
+    console.log("any key pressed, ", search, currentIndex);
     // Define the function:
     const searchGames = async () => {
       const searchLimit = 50;
@@ -59,6 +99,8 @@ export default function SearchBar() {
       setGames(newGames);
       // If there are games results, set the 'result open' div to true:
       setResultIsOpen(true);
+      setCurrentIndex(0);
+      setSearch(games[currentIndex].name);
     };
 
     // Call the function after the timer:
@@ -106,27 +148,40 @@ export default function SearchBar() {
             autoComplete="off"
             onChange={(e) => setUserQuery(e.target.value)}
             onFocus={() => setResultIsOpen(games.length > 0)}
+            onKeyDown={handleKeyDown}
           />
         </form>
         {resultIsOpen ? (
           <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
-            {games.length > 0 ? (
-              games.map((game) => (
-                <Link
-                  key={game.id}
-                  href={`/games/${game.slug}`}
-                  className="text-sm p-2 search-bar-link flex justify-between"
-                  onClick={() => setResultIsOpen(false)}
-                >
-                  <p>{game.name}</p>
-                  <p className="text-sm italic">
-                    {formatDate(game.first_release_date)}
-                  </p>
-                </Link>
-              ))
-            ) : (
-              <p className="p-2">No results found</p>
-            )}
+            <ul>
+              {games.length > 0 ? (
+                games.map((game, index) => (
+                  <li
+                    key={index}
+                    className={
+                      (search === game.name) & (currentIndex === index)
+                        ? "active"
+                        : ""
+                    }
+                  >
+                    <Link
+                      href={`/games/${game.slug}`}
+                      className="text-sm p-2 search-bar-link flex justify-between"
+                      onClick={() => setResultIsOpen(false)}
+                    >
+                      <p>
+                        {game.name} index: {index}
+                      </p>
+                      <p className="text-sm italic">
+                        {formatDate(game.first_release_date)}
+                      </p>
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <p className="p-2">No results found</p>
+              )}
+            </ul>
           </div>
         ) : null}
       </div>

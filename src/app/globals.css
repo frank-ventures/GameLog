@@ -47,6 +47,10 @@
   background-color: var(--second-background-colour);
 }
 
+.search-results .active {
+  background-color: var(--second-background-colour);
+}
+
 /* --- --- ** ** --- ---  */
 header {
   box-shadow: 0px 1px 10px 1px black;
