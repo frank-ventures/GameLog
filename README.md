@@ -21,3 +21,11 @@ As this app was build in Next.js, the solution was to make sure that the fetch c
 ### Search bar needed a delay, as the user types faster than the API can keep up
 
 This helps: [React Guide](https://erikmartinjordan.com/start-search-user-not-typing)
+
+### Once you've used arrow keys to select a list item, use 'Enter' to route to a new page
+
+The [Next.js docs were useful here](https://nextjs.org/docs/app/api-reference/functions/use-router) for the `useRouter` syntax.
+
+### The 'search results' div should scroll the currently selected result into view
+
+Using React `useRef()` was key. This code helped: [Using useRef to scroll through a list of results](https://codesandbox.io/p/sandbox/react-autocomplete-forked-0o1hll?file=%2Fsrc%2Fcomponents%2FAutocomplete.js%3A60%2C15-62%2C25)

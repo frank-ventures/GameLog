@@ -14,30 +14,9 @@ export default function SearchBar() {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
-  //searchRef uses the useRef hook to reference the div containing the search bar and results, so we can handle if a user clicks away from the search bar:
+  // searchRef uses the useRef hook to reference the div containing the search bar and results, so we can handle if a user clicks away from the search bar:
   const searchRef = useRef(null);
-
-  // async function searchGames(event) {
-  //   event.preventDefault();
-  //   const userQuery = event.target.value;
-  //   const searchLimit = 50;
-
-  //   if (userQuery.length > 1) {
-  //     if (bearer) {
-  //       try {
-  //         const newGames = await FetchGames(bearer, userQuery, searchLimit);
-  //         setGames(newGames);
-  //         // If there are games results, set the 'result open' div to true:
-  //         setResultIsOpen(true);
-  //       } catch (error) {
-  //         console.error("Error fetching games:", error);
-  //       }
-  //     }
-  //   } else {
-  //     setResultIsOpen(false);
-  //     setGames([]);
-  //   }
-  // }
+  const selectedRef = useRef(null);
 
   // This function checks if a click occurred outside of the referenced div and, if so, sets resultIsOpen to false:
   const handleClickOutside = (event) => {
@@ -46,41 +25,55 @@ export default function SearchBar() {
     }
   };
 
-  // this functions handles Arrow Key press events, to let a user scroll through the list
+  function setChange() {
+    const selected = selectedRef?.current?.querySelector(".active");
+    if (selected) {
+      selected?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }
+  // This functions handles Arrow Key press events, to let a user scroll through the list, and also Enter key to click through to a page:
   const handleKeyDown = (e) => {
+    // Reset:
     if (e.target.value.length === 0) {
       setCurrentIndex(0);
       return;
     }
 
+    // Handle Enter if the user is not on a result:
     if ((e.key === "Enter") & (currentIndex === -1)) {
       setUserQuery(e.target.value);
     }
+    // Handle Enter if the user is on a result:
     if ((e.key === "Enter") & (currentIndex != -1)) {
       router.push(`/games/${games[currentIndex].slug}`);
       setResultIsOpen(false);
     }
 
     if (e.key === "ArrowDown") {
-      // increment the index by 1 and set the search value to the name of the game at that index
-      setCurrentIndex(currentIndex + 1);
-
-      setSearch(games[currentIndex + 1].name);
       if (currentIndex === games.length - 1) {
         // if we reached the end of the list, reset the index to 0 to restart from the beginning
         setCurrentIndex(0);
+        setSearch(games[0].name);
+        return;
       }
+      // increment the index by 1 and set the search value to the name of the game at that index
+      setCurrentIndex(currentIndex + 1);
+      setSearch(games[currentIndex + 1].name);
     }
     if (e.key === "ArrowUp") {
+      if (currentIndex === 0 || currentIndex === -1) {
+        setCurrentIndex(games.length - 1);
+        setSearch(games[games.length - 1].name);
+        return;
+      }
       // increment the index by 1 and set the search value to the name of the game at that index
       setCurrentIndex(currentIndex - 1);
-
       setSearch(games[currentIndex - 1].name);
-      // if (currentIndex === games.length - 1) {
-      //   // if we reached the end of the list, reset the index to 0 to restart from the beginning
-      //   setCurrentIndex(0);
-      // }
     }
+
     return;
   };
 
@@ -103,7 +96,7 @@ export default function SearchBar() {
       // If there are games results, set the 'result open' div to true:
       setResultIsOpen(true);
       setCurrentIndex(-1);
-      setSearch(games[currentIndex].name);
+      setSearch(games[currentIndex]?.name || "NoGame");
     };
 
     // Call the function after the timer:
@@ -160,31 +153,37 @@ export default function SearchBar() {
         </form>
         {resultIsOpen ? (
           <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
-            <ul>
+            <ul ref={selectedRef}>
               {games.length > 0 ? (
-                games.map((game, index) => (
-                  <li
-                    key={index}
-                    className={
-                      (search === game.name) & (currentIndex === index)
-                        ? "active"
-                        : ""
-                    }
-                  >
-                    <Link
-                      href={`/games/${game.slug}`}
-                      className="text-sm p-2 search-bar-link flex justify-between"
-                      onClick={() => setResultIsOpen(false)}
+                games.map((game, index) => {
+                  setTimeout(() => {
+                    setChange();
+                  }, [100]);
+                  return (
+                    <li
+                      id={`${index + game.slug}`}
+                      key={index}
+                      className={
+                        (search === game.name) & (currentIndex === index)
+                          ? "active"
+                          : ""
+                      }
                     >
-                      <p>
-                        {game.name} index: {index}
-                      </p>
-                      <p className="text-sm italic">
-                        {formatDate(game.first_release_date)}
-                      </p>
-                    </Link>
-                  </li>
-                ))
+                      <Link
+                        href={`/games/${game.slug}`}
+                        className="text-sm p-2 search-bar-link flex justify-between"
+                        onClick={() => setResultIsOpen(false)}
+                      >
+                        <p>
+                          {game.name} index: {index}
+                        </p>
+                        <p className="text-sm italic">
+                          {formatDate(game.first_release_date)}
+                        </p>
+                      </Link>
+                    </li>
+                  );
+                })
               ) : (
                 <p className="p-2">No results found</p>
               )}
