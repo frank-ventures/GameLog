@@ -3,6 +3,7 @@ import { useContext, useState, useEffect, useRef, useCallback } from "react";
 import { BearerContext } from "@/lib/IGDBBearerTokenContext";
 import Link from "next/link";
 import FetchGames from "@/lib/FetchGames";
+import { useRouter } from "next/navigation";
 
 export default function SearchBar() {
   const [bearer, setBearer] = useContext(BearerContext);
@@ -11,6 +12,7 @@ export default function SearchBar() {
   const [userQuery, setUserQuery] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [search, setSearch] = useState("");
+  const router = useRouter();
 
   //searchRef uses the useRef hook to reference the div containing the search bar and results, so we can handle if a user clicks away from the search bar:
   const searchRef = useRef(null);
@@ -50,17 +52,20 @@ export default function SearchBar() {
       setCurrentIndex(0);
       return;
     }
-    if (e.key === "Enter") {
-      console.log(
-        "Enter key pressed: you can run function instead of this log statement"
-      );
+
+    if ((e.key === "Enter") & (currentIndex === -1)) {
+      setUserQuery(e.target.value);
     }
+    if ((e.key === "Enter") & (currentIndex != -1)) {
+      router.push(`/games/${games[currentIndex].slug}`);
+      setResultIsOpen(false);
+    }
+
     if (e.key === "ArrowDown") {
       // increment the index by 1 and set the search value to the name of the game at that index
       setCurrentIndex(currentIndex + 1);
 
-      setSearch(games[currentIndex].name);
-      console.log("down arrow pressed", search, currentIndex);
+      setSearch(games[currentIndex + 1].name);
       if (currentIndex === games.length - 1) {
         // if we reached the end of the list, reset the index to 0 to restart from the beginning
         setCurrentIndex(0);
@@ -70,8 +75,7 @@ export default function SearchBar() {
       // increment the index by 1 and set the search value to the name of the game at that index
       setCurrentIndex(currentIndex - 1);
 
-      setSearch(games[currentIndex].name);
-      console.log("up arrow pressed", search, currentIndex);
+      setSearch(games[currentIndex - 1].name);
       // if (currentIndex === games.length - 1) {
       //   // if we reached the end of the list, reset the index to 0 to restart from the beginning
       //   setCurrentIndex(0);
@@ -90,7 +94,6 @@ export default function SearchBar() {
 
   // This useEffect handles the search function, but only starts after the user has finished typing:
   useEffect(() => {
-    console.log("any key pressed, ", search, currentIndex);
     // Define the function:
     const searchGames = async () => {
       const searchLimit = 50;
@@ -99,7 +102,7 @@ export default function SearchBar() {
       setGames(newGames);
       // If there are games results, set the 'result open' div to true:
       setResultIsOpen(true);
-      setCurrentIndex(0);
+      setCurrentIndex(-1);
       setSearch(games[currentIndex].name);
     };
 
@@ -139,7 +142,11 @@ export default function SearchBar() {
         className="search-bar w-2/6 bg-slate-300 rounded-lg p-2 relative"
       >
         <p className="text-xs">For testing, Bearer Token: {bearer}</p>
-        <form onSubmit={(e) => setUserQuery(e.target.value)}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <input
             type="text"
             id="searchQuery"
