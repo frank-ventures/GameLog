@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function MainNavbar() {
   return (
@@ -19,6 +20,12 @@ export default function MainNavbar() {
             Dummy
           </Link>
         </li>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </ul>
     </nav>
   );

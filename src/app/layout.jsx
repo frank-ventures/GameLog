@@ -1,8 +1,12 @@
-import Header from "../components/header";
-
+// -- Imports --
+//  Functional parts
 import { Inter, Raleway } from "next/font/google";
 import "./globals.css";
+//  Components
+import Header from "../components/header";
 import { Providers } from "../components/providers";
+// Clerk
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 const raleway = Raleway({ subsets: ["latin"] });
@@ -14,13 +18,15 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={raleway.className}>
-        <Providers>
-          <Header />
-          <main className="bg-slate-200 h-screen">{children}</main>
-        </Providers>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={raleway.className}>
+          <Providers>
+            <Header />
+            <main className="bg-slate-200 h-screen">{children}</main>
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
