@@ -140,16 +140,20 @@ export default function SearchBar() {
             e.preventDefault();
           }}
         >
-          <input
-            type="text"
-            id="searchQuery"
-            placeholder="Search games"
-            className="p-1 rounded w-full"
-            autoComplete="off"
-            onChange={(e) => setUserQuery(e.target.value)}
-            onFocus={() => setResultIsOpen(games.length > 0)}
-            onKeyDown={handleKeyDown}
-          />
+          {bearer ? (
+            <input
+              type="text"
+              id="searchQuery"
+              placeholder="Search games"
+              className="p-1 rounded w-full"
+              autoComplete="off"
+              onChange={(e) => setUserQuery(e.target.value)}
+              onFocus={() => setResultIsOpen(games.length > 0)}
+              onKeyDown={handleKeyDown}
+            />
+          ) : (
+            <p className="p-1 rounded w-full bg-white">Loading search...</p>
+          )}
         </form>
         {resultIsOpen ? (
           <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
