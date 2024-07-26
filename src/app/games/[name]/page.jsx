@@ -59,7 +59,9 @@ export default function IndividualGamePage({ params }) {
     <>
       {game ? (
         <>
-          <h2>{game.name}</h2>
+          <div className="game-hero h-48 flex justify-center items-end border-b-2 border-blue-400">
+            <h2>{game.name}</h2>
+          </div>
           <p>{game.summary}</p>
           <div className="screenshots-box border h-auto p-1 text-center">
             <h3>Screenies</h3>

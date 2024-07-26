@@ -25,6 +25,8 @@
   }
 }
 
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
 /* --- --- Globals --- ---  */
 :root {
   --second-background-colour: purple;
@@ -35,9 +37,20 @@
   margin: 0;
   padding: 0;
 }
-/* --- --- ** ** --- ---  */
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
 
 /* --- --- Header --- ---  */
+
+/* Shadow & top positioning */
+.header {
+  box-shadow: 0px 3px 10px black;
+  width: 100dvw;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+}
+
 .logo h3 {
   text-shadow: 2px 2px 2px black;
 }
@@ -47,4 +60,38 @@
   background-color: var(--second-background-colour);
 }
 
-/* --- --- ** ** --- ---  */
+.search-results .active {
+  background-color: var(--second-background-colour);
+}
+
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- Home Page background --- ---  */
+
+.home-page-main {
+  background-image: url("../../public/images/home-page-background.jpg");
+}
+
+.home-page-main-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.5) 29%,
+    rgba(255, 255, 255, 0.5) 98%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  z-index: 2;
+}
+
+.intro-box {
+  box-shadow: 2px 3px 10px black;
+}
+
+.game-hero {
+}
