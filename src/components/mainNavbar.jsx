@@ -21,7 +21,7 @@ export default function MainNavbar() {
           </Link>
         </li>
         <SignedOut>
-          <SignInButton />
+          <Link href="/sign-in"> Log In</Link>
         </SignedOut>
         <SignedIn>
           <UserButton />

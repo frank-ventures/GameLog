@@ -1,8 +1,18 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@images/*": ["./public/images/*"]
+      "@/*": ["/src/*"],
+      "@/src/*": ["/src/*"],
+      "@/lib/*": ["/src/lib/*"],
+      "@/components/*": ["/src/components/*"],
+      "@/images/*": ["/public/images/*"]
     }
   }
 }
+
+// "paths": {
+//   "@/layouts/*": ["src/layouts/*"],
+//   "@/components/*": ["src/components/*"],
+//   "@/public/*": ["./public/*"]
+// }

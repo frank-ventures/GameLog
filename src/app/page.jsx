@@ -1,3 +1,6 @@
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="home-page-main h-full w-full">
@@ -10,9 +13,16 @@ export default function Home() {
             <h3>Make some notes</h3>
             <h3>Never forget what youre doing again</h3>
           </div>
-          <button className="bg-slate-200 rounded-xl mt-16 p-4 shadow-lg text-black ">
-            Make Some Notes! (This button does nothing right now)
-          </button>
+          <SignedOut>
+            <div className="call-to-action flex gap-10">
+              <button className="bg-slate-200 rounded-xl mt-16 p-4 shadow-lg text-black border-2 border-black ">
+                <Link href="/sign-up"> Sign Up Now</Link>
+              </button>
+              <button className="bg-slate-800 rounded-xl mt-16 p-4 shadow-lg text-white border-2 border-white">
+                <Link href="/sign-in"> Log In</Link>
+              </button>
+            </div>
+          </SignedOut>
         </div>
       </div>
     </div>
