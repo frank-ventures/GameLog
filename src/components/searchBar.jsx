@@ -4,10 +4,12 @@ import { BearerContext } from "@/lib/IGDBBearerTokenContext";
 import Link from "next/link";
 import FetchGames from "@/lib/FetchGames";
 import { useRouter } from "next/navigation";
+import FetchPlatforms from "@/lib/FetchPlatforms";
 
 export default function SearchBar() {
   const [bearer, setBearer] = useContext(BearerContext);
   const [games, setGames] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
   const [resultIsOpen, setResultIsOpen] = useState(false);
   const [userQuery, setUserQuery] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,7 +32,8 @@ export default function SearchBar() {
     if (selected) {
       selected?.scrollIntoView({
         behavior: "smooth",
-        block: "start"
+        block: "nearest",
+        inline: "start"
       });
     }
   }
@@ -93,6 +96,8 @@ export default function SearchBar() {
 
       const newGames = await FetchGames(bearer, userQuery, searchLimit);
       setGames(newGames);
+
+      // const newPlatforms = await FetchPlatforms(bearer, game);
       // If there are games results, set the 'result open' div to true:
       setResultIsOpen(true);
       setCurrentIndex(-1);
@@ -117,6 +122,17 @@ export default function SearchBar() {
 
     return () => clearTimeout(timer);
   }, [bearer, userQuery]);
+
+  // // Future starting point for getting Platform data. Maybe wants to be displayed alongside 'game.first_release_date, or maybe in a popover on a hover effect?
+  // useEffect(() => {
+  //   games.forEach((game) => {
+  //     const getPlatform = async () => {
+  //       const newPlatform = await FetchPlatforms(bearer, game);
+  //       console.log(newPlatform[0].abbreviation);
+  //     };
+  //     getPlatform();
+  //   });
+  // }, [bearer, games]);
 
   const formatDate = (timestamp) => {
     if (timestamp) {
@@ -162,7 +178,7 @@ export default function SearchBar() {
                 games.map((game, index) => {
                   setTimeout(() => {
                     setChange();
-                  }, [100]);
+                  }, [50]);
                   return (
                     <li
                       id={`${index + game.slug}`}
@@ -178,9 +194,7 @@ export default function SearchBar() {
                         className="text-sm p-2 search-bar-link flex justify-between"
                         onClick={() => setResultIsOpen(false)}
                       >
-                        <p>
-                          {game.name} index: {index}
-                        </p>
+                        <p>{game.name}</p>
                         <p className="text-sm italic">
                           {formatDate(game.first_release_date)}
                         </p>
