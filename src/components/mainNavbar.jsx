@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function MainNavbar() {
   return (
     <nav>
-      <ul className="flex gap-8">
+      <ul className="flex gap-8 text-white">
         <li>
           <Link href="/" className="fancy-link">
             Home

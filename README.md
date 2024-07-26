@@ -45,3 +45,13 @@ The [Next.js docs were useful here](https://nextjs.org/docs/app/api-reference/fu
 Using React `useRef()` was key. This code helped: [Using useRef to scroll through a list of results](https://codesandbox.io/p/sandbox/react-autocomplete-forked-0o1hll?file=%2Fsrc%2Fcomponents%2FAutocomplete.js%3A60%2C15-62%2C25)
 
 As did [this code, to prevent the page from "bouncing" when a user scrolls](https://stackoverflow.com/questions/11039885/scrollintoview-causing-the-whole-page-to-move)
+
+### Once you've used arrow keys to select a list item, use 'Enter' to route to a new page
+
+The [Next.js docs were useful here](https://nextjs.org/docs/app/api-reference/functions/use-router) for the `useRouter` syntax.
+
+### The 'search results' div should scroll the currently selected result into view
+
+Using React `useRef()` was key. This code helped: [Using useRef to scroll through a list of results](https://codesandbox.io/p/sandbox/react-autocomplete-forked-0o1hll?file=%2Fsrc%2Fcomponents%2FAutocomplete.js%3A60%2C15-62%2C25)
+
+As did [this code, to prevent the page from "bouncing" when a user scrolls](https://stackoverflow.com/questions/11039885/scrollintoview-causing-the-whole-page-to-move)
