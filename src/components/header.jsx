@@ -4,9 +4,19 @@ import MainNavbar from "./mainNavbar";
 import SearchBar from "./searchBar";
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
+import InsertNewUser from "../lib/Supabase/InsertUser";
+import CheckUser from "../lib/Supabase/CheckUser";
 
 export default async function Header() {
   const user = await currentUser();
+
+  if (user) {
+    const exists = await CheckUser(user.id);
+    console.log(exists);
+    if (exists != true) {
+      InsertNewUser(user.id, user.username);
+    }
+  }
   // console.log(user);
   // console.log(user.id);
   return (
