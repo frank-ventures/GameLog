@@ -1,12 +1,11 @@
 "use client";
-
-import { BearerContext } from "../../../lib/IGDB/IGDBBearerTokenContext";
-import FetchIndividualGame from "../../../lib/IGDB/FetchIndividualGame";
+import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
+import FetchIndividualGame from "@lib/IGDB/FetchIndividualGame";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import FetchScreenshots from "../../../lib/IGDB/FetchScreenshots";
+import FetchScreenshots from "@lib/IGDB/FetchScreenshots";
 
 export default function IndividualGamePage({ params }) {
   const [bearer, setBearer] = useContext(BearerContext);

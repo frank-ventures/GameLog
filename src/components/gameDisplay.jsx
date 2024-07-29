@@ -1,8 +1,8 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { BearerContext } from "../lib/IGDBBearerTokenContext";
-import FetchGames from "../lib/FetchGames";
+import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
+import FetchGames from "@lib/IGDB/FetchGames";
 
 export default function GameDisplay() {
   const [bearer, setBearer] = useContext(BearerContext);
