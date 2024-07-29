@@ -41,7 +41,7 @@ export default async function CenteredInfo({ place, displayType }) {
         <h2>Welcome back{user?.firstName ? ` ${user.firstName}!` : "!"}</h2>
         <div className="call-to-action flex gap-10">
           <MainButton
-            href={`/profile/${user.id}`}
+            href={`/profile/${user?.id}`}
             buttonText={"Your GameLog"}
           />
         </div>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import InsertNewUser from "@lib/Supabase/InsertUser";
 import CheckUser from "@lib/Supabase/CheckUser";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 
 export default async function Header() {
   const user = await currentUser();

@@ -1,5 +1,6 @@
+"use client";
 import Link from "next/link";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function MainNavbar({ userId }) {
   return (
@@ -22,11 +23,13 @@ export default function MainNavbar({ userId }) {
             </Link>
           </li>
         </SignedIn>
-        <SignedOut>
-          <Link href="/sign-in"> Log In</Link>
-        </SignedOut>
+        <li>
+          <SignedOut>
+            <Link href="/sign-in"> Log In</Link>
+          </SignedOut>
+        </li>
         <SignedIn>
-          <UserButton />
+          <UserButton className={"z-50"} />
         </SignedIn>
       </ul>
     </nav>
