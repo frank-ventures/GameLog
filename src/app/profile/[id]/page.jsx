@@ -1,3 +1,5 @@
+import CenteredInfo from "@/src/components/centeredInfo";
+import PageBackground from "@/src/components/homeBackground";
 import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 
@@ -21,9 +23,10 @@ export default async function UserProfilePage() {
     );
   } else {
     return (
-      <>
+      <PageBackground>
+        <CenteredInfo place="sign-in" />
         <p>You should probably sign in</p>
-      </>
+      </PageBackground>
     );
   }
 }
