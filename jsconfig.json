@@ -1,19 +1,15 @@
 {
   "compilerOptions": {
     "checkJs": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["/src/*"],
-      "@/src/*": ["/src/*"],
-      "@/lib/*": ["/src/lib/*"],
-      "@/components/*": ["/src/components/*"],
-      "@/images/*": ["/public/images/*"]
-    }
+    "baseUrl": "."
+    // "include": ["next-env.d.js", "**/*.js", "**/*.jsx"],
+    // "exclude": ["node_modules"],
+    // "paths": {
+    //   "@/*": ["/src/*"],
+    //   "@/src/*": ["/src/*"],
+    //   "@/lib/*": ["/src/lib/*"],
+    //   "@/components/*": ["/src/components/*"],
+    //   "@/images/*": ["/public/images/*"]
+    // }
   }
 }
-
-// "paths": {
-//   "@/layouts/*": ["src/layouts/*"],
-//   "@/components/*": ["src/components/*"],
-//   "@/public/*": ["./public/*"]
-// }

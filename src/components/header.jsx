@@ -35,7 +35,7 @@ export default async function Header() {
         <></>
       )}
 
-      <MainNavbar />
+      <MainNavbar userId={user?.id} />
     </header>
   );
 }

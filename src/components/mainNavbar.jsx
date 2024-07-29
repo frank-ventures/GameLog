@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
-export default function MainNavbar() {
+export default function MainNavbar({ userId }) {
   return (
     <nav>
       <ul className="flex gap-8 text-white">
@@ -15,11 +15,13 @@ export default function MainNavbar() {
             About
           </Link>
         </li>
-        <li>
-          <Link href="/dummy" className="fancy-link">
-            Dummy
-          </Link>
-        </li>
+        <SignedIn>
+          <li>
+            <Link href={`/profile/${userId}`} className="fancy-link">
+              Your GameLog
+            </Link>
+          </li>
+        </SignedIn>
         <SignedOut>
           <Link href="/sign-in"> Log In</Link>
         </SignedOut>
