@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Logo from "../../public/images/GameLog-1-1.png";
+import Logo from "@images/GameLog-1-1.png";
 import MainNavbar from "./mainNavbar";
 import SearchBar from "./searchBar";
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
-import InsertNewUser from "../lib/Supabase/InsertUser";
-import CheckUser from "../lib/Supabase/CheckUser";
+import InsertNewUser from "@lib/Supabase/InsertUser";
+import CheckUser from "@lib/Supabase/CheckUser";
 
 export default async function Header() {
   const user = await currentUser();
