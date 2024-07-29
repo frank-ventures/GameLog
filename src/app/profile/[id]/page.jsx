@@ -25,7 +25,6 @@ export default async function UserProfilePage() {
     return (
       <PageBackground>
         <CenteredInfo place="sign-in" />
-        <p>You should probably sign in</p>
       </PageBackground>
     );
   }

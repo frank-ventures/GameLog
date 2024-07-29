@@ -5,7 +5,7 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 export default function MainNavbar({ userId }) {
   return (
     <nav>
-      <ul className="flex gap-8 text-white">
+      <ul className="flex justify-center items-center gap-8 mr-6 text-white">
         <li>
           <Link href="/" className="fancy-link">
             Home
@@ -23,13 +23,15 @@ export default function MainNavbar({ userId }) {
             </Link>
           </li>
         </SignedIn>
-        <li>
-          <SignedOut>
+        <SignedOut>
+          <li>
             <Link href="/sign-in"> Log In</Link>
-          </SignedOut>
-        </li>
+          </li>
+        </SignedOut>
         <SignedIn>
-          <UserButton className={"z-50"} />
+          <li>
+            <UserButton className={"z-50"} />
+          </li>
         </SignedIn>
       </ul>
     </nav>

@@ -28,13 +28,16 @@ export default async function Header() {
           <h3 className="text-white">GameLog</h3>
         </Link>
       </div>
-
-      <SearchBar />
       {user?.firstName ? (
-        <p className="text-white"> Hey {user.firstName}! 👋</p>
+        <p className="text-white">
+          {" "}
+          Hey {user.firstName || user.username || you}! 👋
+        </p>
       ) : (
         <></>
       )}
+
+      <SearchBar />
 
       <MainNavbar userId={user?.id} />
     </header>

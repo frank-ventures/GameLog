@@ -29,7 +29,10 @@
 
 /* --- --- Globals --- ---  */
 :root {
+  --primary-orange-colour: rgb(234 88 12);
+  --secondary-grey-colour: rgb(203 213 225);
   --second-background-colour: purple;
+  --secondary-dark-slate-colour: rgb(30 41 59);
 }
 
 * {
@@ -91,6 +94,32 @@
 
 .intro-box {
   box-shadow: 2px 3px 10px black;
+}
+
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- Buttons --- ---  */
+.cta-button {
+  box-shadow: 2px 2px 0px var(--secondary-grey-colour);
+}
+
+.cta-button:hover {
+  animation: 1.5s background-shift infinite linear;
+}
+
+@keyframes background-shift {
+  0% {
+  }
+  30% {
+    background-color: orange;
+    color: black;
+  }
+  60% {
+    background-color: orange;
+    color: black;
+  }
+  100% {
+  }
 }
 
 .game-hero {
