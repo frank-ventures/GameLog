@@ -25,7 +25,9 @@ export default function MainNavbar({ userId }) {
         </SignedIn>
         <SignedOut>
           <li>
-            <Link href="/sign-in"> Log In</Link>
+            <Link href="/sign-in" className="fancy-link">
+              Log In
+            </Link>
           </li>
         </SignedOut>
         <SignedIn>
