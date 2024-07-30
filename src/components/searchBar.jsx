@@ -1,10 +1,11 @@
 "use client";
-import { useContext, useState, useEffect, useRef, useCallback } from "react";
-import { BearerContext } from "@/lib/IGDBBearerTokenContext";
+import { useContext, useState, useEffect, useRef } from "react";
+// import { BearerContext } from "@/lib/IGDBBearerTokenContext";
+import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
 import Link from "next/link";
-import FetchGames from "@/lib/FetchGames";
+import FetchGames from "@lib/IGDB/FetchGames";
 import { useRouter } from "next/navigation";
-import FetchPlatforms from "@/lib/FetchPlatforms";
+// import FetchPlatforms from "@/lib/FetchPlatforms";
 
 export default function SearchBar() {
   const [bearer, setBearer] = useContext(BearerContext);
@@ -33,7 +34,7 @@ export default function SearchBar() {
       selected?.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
-        inline: "start"
+        inline: "start",
       });
     }
   }

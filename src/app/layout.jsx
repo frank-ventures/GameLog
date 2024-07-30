@@ -3,8 +3,8 @@
 import { Inter, Raleway } from "next/font/google";
 import "./globals.css";
 //  Components
-import Header from "../components/header";
-import { Providers } from "../components/providers";
+import Header from "@components/header";
+import { Providers } from "@components/providers";
 // Clerk
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -13,7 +13,7 @@ const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata = {
   title: "GameLog",
-  description: "Keep track of your game journeys"
+  description: "Keep track of your game journeys",
 };
 
 export default async function RootLayout({ children }) {

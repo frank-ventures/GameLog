@@ -6,6 +6,7 @@ GameLog is an app and website where a player can keep track of which games they 
 
 - The search bar will check [IGDB](https://www.igdb.com/) for what you've searched, and give you some of the most relevant results
 - You can go to an individual game page to see info about that game.
+- You have your own user page. Lucky thing!
 
 # Future Features
 
@@ -13,6 +14,7 @@ GameLog is an app and website where a player can keep track of which games they 
 
 - [IGDB for their API](https://www.igdb.com/)
 - [Denise Jans on Unsplash for the background image](https://unsplash.com/photos/black-sony-dslr-camera-on-white-surface-uIemlFWQSC4?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash)
+- [LDRS for the awesome, lightweight loaders!](https://uiball.com/ldrs/)
 
 ### The user should be able to see which platform the game result is on
 
