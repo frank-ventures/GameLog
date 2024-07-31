@@ -12,7 +12,6 @@ export default async function Header() {
 
   if (user) {
     const exists = await CheckUser(user.id);
-    console.log("Header check if user exists in db: ", exists);
     if (exists == undefined) {
       InsertNewUser(user.id, user.username);
     }

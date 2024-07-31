@@ -4,18 +4,13 @@ import InsertFavouriteGame from "../lib/Supabase/InsertFavourite";
 import RemoveFavouriteGame from "../lib/Supabase/RemoveFavourite";
 import { DBUserIDContext } from "../lib/Supabase/DBUserIdContext";
 
-export default function AddFavouriteGameButton({ GameID, GameName }) {
+export default function ToggleFavouriteGameButton({ GameID, GameName }) {
   // When this component is rendered, it wants to check if the user has already favourited the game, so needs this 'exists' state:
   const [exists, setExists] = useState(false);
   // This 'loading' state is to show the user something is happening once they've clicked:
   const [loading, setLoading] = useState(true);
   // This holds their Supabase ID, linked to their Clerk account:
   const [usersDatabaseID] = useContext(DBUserIDContext);
-
-  // TODO: Remove this if statement:
-  if (usersDatabaseID.id) {
-    console.log("add fave button user db id: ", usersDatabaseID.id);
-  }
 
   // On load and receipt of GameID into the button, query the DB to see if the user has favourited the game already:
   useEffect(() => {
@@ -60,16 +55,10 @@ export default function AddFavouriteGameButton({ GameID, GameName }) {
   }
 
   return (
-    <>
-      {loading ? (
-        ""
-      ) : exists ? (
-        <p>You have favourited this</p>
-      ) : (
-        <p>Not favourite</p>
-      )}
+    <div className="favourite-button flex gap-1">
+      {loading ? "" : exists ? <p>&#11088;</p> : <p></p>}
       <button
-        className="bg-orange-600 text-white p-6 rounded"
+        className="bg-orange-600 text-white p-2 rounded text-sm hover:bg-red-700"
         onClick={handleClick}
       >
         {exists
@@ -80,6 +69,6 @@ export default function AddFavouriteGameButton({ GameID, GameName }) {
           ? "loading..."
           : "Click me to Favourite"}
       </button>
-    </>
+    </div>
   );
 }

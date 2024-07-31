@@ -7,11 +7,9 @@ import CheckUser from "./CheckUser";
 export default async function GetDBUserID() {
   // Get clerk id:
   const user = await currentUser();
-  console.log("db id get user: ", user.id);
 
   // Query database with clerk id:
   const DBID = await CheckUser(user.id);
-  console.log("db get db id : ", DBID);
 
   // Return database user object, which contains their id:
   return await DBID;
