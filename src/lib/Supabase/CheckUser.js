@@ -13,9 +13,5 @@ export default async function CheckUser(clerkId) {
   );
   const result = response.rows[0];
 
-  if (result?.clerk_id == clerkId) {
-    return true;
-  } else {
-    return false;
-  }
+  return result;
 }

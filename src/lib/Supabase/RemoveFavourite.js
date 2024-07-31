@@ -2,10 +2,9 @@
 
 import { db } from "./db";
 
-// Insert new user favourite game into the database
+// Delete users favourite game from the database
 export default async function RemoveFavouriteGame(userId, IGDBGameId) {
   let success;
-  console.log("RemoveFaveGame - You've passed in: ", userId, IGDBGameId);
 
   const response = await db.query(
     `
@@ -17,7 +16,6 @@ export default async function RemoveFavouriteGame(userId, IGDBGameId) {
     [userId, IGDBGameId]
   );
   const result = response.rows;
-  console.log(result);
   if (result) {
     return true;
   } else {

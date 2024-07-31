@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default async function UserProfilePage() {
   const user = await currentUser();
-  //   console.log(user);
+  // console.log(user);
 
   const logs = await FetchLogs(10, 1289);
   // console.log("Profile page:  ", logs);

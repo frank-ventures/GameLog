@@ -9,12 +9,6 @@ export default async function InsertFavouriteGame(
   GameName
 ) {
   let success;
-  console.log(
-    "InsertNewFaveGame - You've passed in: ",
-    userId,
-    IGDBGameId,
-    GameName
-  );
 
   const response = await db.query(
     `
@@ -26,7 +20,6 @@ export default async function InsertFavouriteGame(
     [userId, IGDBGameId, GameName]
   );
   const result = response.rows;
-  console.log(result);
   if (result) {
     return true;
   } else {
