@@ -6,7 +6,6 @@ import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import InsertNewUser from "@lib/Supabase/InsertUser";
 import CheckUser from "@lib/Supabase/CheckUser";
-import { SignedIn, UserButton } from "@clerk/nextjs";
 
 export default async function Header() {
   const user = await currentUser();
@@ -14,7 +13,7 @@ export default async function Header() {
   if (user) {
     const exists = await CheckUser(user.id);
     console.log("Header check if user exists in db: ", exists);
-    if (exists != true) {
+    if (exists == undefined) {
       InsertNewUser(user.id, user.username);
     }
   }

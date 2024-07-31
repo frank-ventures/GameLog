@@ -1,6 +1,5 @@
 "use client";
 import { useContext, useState, useEffect, useRef } from "react";
-// import { BearerContext } from "@/lib/IGDBBearerTokenContext";
 import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
 import Link from "next/link";
 import FetchGames from "@lib/IGDB/FetchGames";
