@@ -23,7 +23,10 @@ export default async function Header() {
       <div className="logo ">
         <Link href={"/"} className="flex items-center">
           <Image src={Logo} alt="Logo" className="h-16 w-auto" />
-          <h3 className="text-white">GameLog</h3>
+          <div className="logo-text flex flex-col">
+            <h3 className="text-white">GameLog</h3>
+            <p className="italic text-xs text-white">Vers: Alpha 0.1</p>
+          </div>
         </Link>
       </div>
       {user?.firstName ? (

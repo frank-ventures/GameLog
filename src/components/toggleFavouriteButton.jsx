@@ -3,6 +3,7 @@ import CheckFavouriteExists from "../lib/Supabase/CheckFavouriteExists";
 import InsertFavouriteGame from "../lib/Supabase/InsertFavourite";
 import RemoveFavouriteGame from "../lib/Supabase/RemoveFavourite";
 import { DBUserIDContext } from "../lib/Supabase/DBUserIdContext";
+import QuantumSpinner from "./ldrsSpinners";
 
 export default function ToggleFavouriteGameButton({ GameID, GameName }) {
   // When this component is rendered, it wants to check if the user has already favourited the game, so needs this 'exists' state:
@@ -56,18 +57,28 @@ export default function ToggleFavouriteGameButton({ GameID, GameName }) {
 
   return (
     <div className="favourite-button flex gap-1">
-      {loading ? "" : exists ? <p>&#11088;</p> : <p></p>}
+      {loading ? (
+        <QuantumSpinner size={"20"} />
+      ) : exists ? (
+        <p>&#11088;</p>
+      ) : (
+        <p></p>
+      )}
       <button
         className="bg-orange-600 text-white p-2 rounded text-sm hover:bg-red-700"
         onClick={handleClick}
       >
-        {exists
-          ? loading
-            ? "loading..."
-            : "Click me to unFavourite"
-          : loading
-          ? "loading..."
-          : "Click me to Favourite"}
+        {exists ? (
+          loading ? (
+            <QuantumSpinner size={"20"} />
+          ) : (
+            "Click me to unFavourite"
+          )
+        ) : loading ? (
+          <QuantumSpinner size={"20"} />
+        ) : (
+          "Click me to Favourite"
+        )}
       </button>
     </div>
   );

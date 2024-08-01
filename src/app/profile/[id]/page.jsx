@@ -23,15 +23,6 @@ export default async function UserProfilePage() {
           displayImage={user.imageUrl}
         />
         <FavouritesDisplay />
-        <h2>Your Logs</h2>
-        {logs.map((log) => {
-          return (
-            <div key={log.id}>
-              <p>{log.game_name}</p>
-              <p>{log.content}</p>
-            </div>
-          );
-        })}
       </>
     );
   } else {
