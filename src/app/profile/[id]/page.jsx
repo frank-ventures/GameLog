@@ -2,7 +2,6 @@ import CenteredInfo from "@/src/components/centeredInfo";
 import FavouritesDisplay from "@/src/components/favouritesDisplay";
 import Hero from "@/src/components/hero";
 import PageBackground from "@/src/components/homeBackground";
-import QuantumSpinner from "@/src/components/ldrsSpinners";
 
 import FetchLogs from "@/src/lib/Supabase/FetchLogs";
 import { currentUser } from "@clerk/nextjs/server";

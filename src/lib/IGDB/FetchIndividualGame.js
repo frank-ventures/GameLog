@@ -11,10 +11,10 @@ export default async function FetchIndividualGame(bearer, gameName) {
     method: "POST",
     headers: {
       "Client-ID": clientId,
-      "Authorization": `Bearer ${bearer}`,
-      "Content-Type": "application/json"
+      Authorization: `Bearer ${bearer}`,
+      "Content-Type": "application/json",
     },
-    body: `${body}`
+    body: `${body}`,
   });
 
   if (!response.ok) {

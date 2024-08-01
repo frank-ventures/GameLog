@@ -150,7 +150,7 @@ export default function SearchBar() {
         ref={searchRef}
         className="search-bar w-2/6 bg-slate-300 rounded-lg p-2 relative"
       >
-        <p className="text-xs">For testing, Bearer Token: {bearer}</p>
+        {/* <p className="text-xs">For testing, Bearer Token: {bearer}</p> */}
         <form
           onSubmit={(e) => {
             e.preventDefault();

@@ -13,6 +13,10 @@ GameLog is an app and website where a player can keep track of which games they 
 
 # Future Features
 
+[] Sort your favourited games by recently updated, recently added, alphabetically...
+[] Add new logs
+[] Edit existing logs
+
 # Mentions & Credits
 
 - [IGDB for their API](https://www.igdb.com/)

@@ -6,18 +6,17 @@ import { db } from "./db";
 export default async function InsertFavouriteGame(
   userId,
   IGDBGameId,
-  GameName
+  GameName,
+  GameSlug
 ) {
-  let success;
-
   const response = await db.query(
     `
     INSERT INTO favourites
-    (user_id, igdb_game_id, game_name)
+    (user_id, igdb_game_id, game_name, game_slug)
     VALUES
-    ($1, $2, $3)
+    ($1, $2, $3, $4)
     RETURNING *;`,
-    [userId, IGDBGameId, GameName]
+    [userId, IGDBGameId, GameName, GameSlug]
   );
   const result = response.rows;
   if (result) {

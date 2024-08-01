@@ -54,7 +54,7 @@ export default function IndividualGamePage({ params }) {
     getScreenshots(bearer, game);
   }, [game]);
 
-  // console.log("IndividualGamePage game: ", game);
+  console.log("IndividualGamePage game: ", game);
   // console.log("IndividualGamePage images: ", images);
   console.log(game);
   return (
@@ -63,7 +63,11 @@ export default function IndividualGamePage({ params }) {
         <>
           <Hero displayName={game.name} place={"gamePage"} />
           <SignedIn>
-            <ToggleFavouriteGameButton GameID={game.id} GameName={game.name} />
+            <ToggleFavouriteGameButton
+              GameID={game.id}
+              GameName={game.name}
+              GameSlug={game.slug}
+            />
           </SignedIn>
           <p>{game.summary}</p>
           <div className="screenshots-box border h-auto p-1 text-center">

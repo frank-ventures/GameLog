@@ -5,7 +5,11 @@ import RemoveFavouriteGame from "../lib/Supabase/RemoveFavourite";
 import { DBUserIDContext } from "../lib/Supabase/DBUserIdContext";
 import QuantumSpinner from "./ldrsSpinners";
 
-export default function ToggleFavouriteGameButton({ GameID, GameName }) {
+export default function ToggleFavouriteGameButton({
+  GameID,
+  GameName,
+  GameSlug,
+}) {
   // When this component is rendered, it wants to check if the user has already favourited the game, so needs this 'exists' state:
   const [exists, setExists] = useState(false);
   // This 'loading' state is to show the user something is happening once they've clicked:
@@ -44,7 +48,8 @@ export default function ToggleFavouriteGameButton({ GameID, GameName }) {
       const success = await InsertFavouriteGame(
         usersDatabaseID.id,
         GameID,
-        GameName
+        GameName,
+        GameSlug
       );
       if (success) {
         setExists(true);
