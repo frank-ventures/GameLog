@@ -16,6 +16,8 @@ export default function FavouritesDisplay() {
   const [usersDatabaseID] = useContext(DBUserIDContext);
   const [favourites, setFavourites] = useState([]);
   const [bearer, setBearer] = useContext(BearerContext);
+  // This state acts as a toggle for when a new log is added. It's passed into the log display, and the function into InsertNewUserLog:
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     const getFaves = async () => {
@@ -47,18 +49,18 @@ export default function FavouritesDisplay() {
                       GameName={fave.game_name}
                     />
                   </div>
-                  <div className="game-fave-log flex flex-col w-10/12 p-2">
+                  <div className="game-fave-log flex flex-col  gap-2 w-10/12 p-2">
                     <h3>Logs</h3>
-                    {/* //when the form is submitted i need to trigger the individual game logs to update. */}
-                    {/* current problem is that the page doesnt refresh on form submission */}
-                    {/* maybe you need to make API routes, and use SWR to sort this out */}
                     <InsertNewUserLog
-                      UserID={fave.user_id}
+                      UserID={usersDatabaseID.id}
                       IGDBGameID={fave.igdb_game_id}
+                      ChangeAdded={() => setAdded(!added)}
                     />
+
                     <IndividualGameLogs
                       UserID={usersDatabaseID.id}
-                      GameID={fave.igdb_game_id}
+                      IGDBGameID={fave.igdb_game_id}
+                      Added={added}
                     />
                   </div>
                 </div>

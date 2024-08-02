@@ -10,11 +10,12 @@ GameLog is an app and website where a player can keep track of which games they 
 - You can go to an individual game page to see info about that game.
 - You can add individual games to your own favourites.
 - Not only can you sign up and log in, but you have your own user page. Lucky thing!
+- You can add logs to your favourited games via your user page.
 
 # Future Features
 
 [] Sort your favourited games by recently updated, recently added, alphabetically...
-[] Add new logs
+[X] Add new logs
 [] Edit existing logs
 
 # Mentions & Credits

@@ -4,7 +4,6 @@ import { db } from "./db";
 
 // Insert new user log into the database
 export default async function InsertNewLog(IGDBGameId, userId, content) {
-  console.log("insert new log db thing", IGDBGameId, userId, content);
   const response = await db.query(
     `
     INSERT INTO logs
