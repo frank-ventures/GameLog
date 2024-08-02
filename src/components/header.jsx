@@ -20,8 +20,8 @@ export default async function Header() {
   // console.log(user.id);
   return (
     <header className="header h-20 bg-slate-700 bg-opacity-80 flex items-center justify-between p-2">
-      <div className="logo ">
-        <Link href={"/"} className="flex items-center">
+      <div className="logo">
+        <Link href={"/"} className="logo-link flex items-center">
           <Image src={Logo} alt="Logo" className="h-16 w-auto" />
           <div className="logo-text flex flex-col">
             <h3 className="text-white">GameLog</h3>

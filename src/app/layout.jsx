@@ -2,6 +2,7 @@
 //  Functional parts
 import { Inter, Raleway } from "next/font/google";
 import "./globals.css";
+import "./media.css";
 //  Components
 import Header from "@components/header";
 import { Providers } from "@components/providers";
@@ -23,7 +24,7 @@ export default async function RootLayout({ children }) {
         <body className={raleway.className}>
           <Providers>
             <Header />
-            <main className="bg-slate-200 min-h-dvh w-dvw">{children}</main>
+            <main className="bg-slate-200 min-h-dvh w-vw">{children}</main>
           </Providers>
         </body>
       </html>

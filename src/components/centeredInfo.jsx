@@ -11,7 +11,7 @@ export default async function CenteredInfo({ place, displayType }) {
   const user = await currentUser();
 
   return (
-    <div className="intro-box bg-orange-600 h-3/6 w-3/6 p-16 rounded-2xl bg-opacity-60 shadow flex flex-col items-center justify-center mb-4 text-white relative">
+    <div className="intro-box bg-orange-600 h-3/6 w-3/6 p-16 rounded-2xl bg-opacity-60 shadow flex flex-col items-center justify-center text-center mb-4 text-white relative">
       <h1>GameLog</h1>
       {place == "home" ? (
         <h2>Your Personal Games Journal</h2>
