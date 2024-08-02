@@ -15,14 +15,17 @@ import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
 export default function FavouritesDisplay() {
   const [usersDatabaseID] = useContext(DBUserIDContext);
   const [favourites, setFavourites] = useState([]);
-  const [bearer, setBearer] = useContext(BearerContext);
+  const [loading, setLoading] = useState(false);
+
   // This state acts as a toggle for when a new log is added. It's passed into the log display, and the function into InsertNewUserLog:
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const getFaves = async () => {
       const userFaves = await FetchFavourites(usersDatabaseID.id);
       setFavourites(userFaves);
+      setLoading(false);
     };
     getFaves();
   }, [usersDatabaseID]);
@@ -31,7 +34,9 @@ export default function FavouritesDisplay() {
     <>
       <h2>Your Favourited Games</h2>
       <div className="user-favourites flex flex-col gap-2 mx-4 border border-gray-400">
-        {favourites.length > 0
+        {loading
+          ? "Loading favourites..."
+          : favourites.length > 0
           ? favourites.map((fave) => {
               return (
                 <div
@@ -66,7 +71,7 @@ export default function FavouritesDisplay() {
                 </div>
               );
             })
-          : ""}
+          : "No favourites to show - Get searching!"}
       </div>
     </>
   );
