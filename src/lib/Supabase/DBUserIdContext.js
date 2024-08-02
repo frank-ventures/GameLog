@@ -16,6 +16,7 @@ export function DBUserIDProvider({ children }) {
       const userID = await GetDBUserID();
       setUserDBID(userID);
     };
+
     getUserDBID();
   }, []);
 

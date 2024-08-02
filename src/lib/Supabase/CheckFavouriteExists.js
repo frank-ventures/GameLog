@@ -2,7 +2,7 @@
 
 import { db } from "./db";
 
-// Check the users favourites in the database
+// Check if the user has favourited a specific game in the database
 export default async function CheckFavouriteExists(userId, IGDBGameId) {
   const response = await db.query(
     `

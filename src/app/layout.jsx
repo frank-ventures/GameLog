@@ -23,7 +23,7 @@ export default async function RootLayout({ children }) {
         <body className={raleway.className}>
           <Providers>
             <Header />
-            <main className="bg-slate-200 h-screen">{children}</main>
+            <main className="bg-slate-200 min-h-dvh w-dvw">{children}</main>
           </Providers>
         </body>
       </html>

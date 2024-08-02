@@ -3,19 +3,19 @@ import CheckFavouriteExists from "../lib/Supabase/CheckFavouriteExists";
 import InsertFavouriteGame from "../lib/Supabase/InsertFavourite";
 import RemoveFavouriteGame from "../lib/Supabase/RemoveFavourite";
 import { DBUserIDContext } from "../lib/Supabase/DBUserIdContext";
+import QuantumSpinner from "./ldrsSpinners";
 
-export default function AddFavouriteGameButton({ GameID, GameName }) {
+export default function ToggleFavouriteGameButton({
+  GameID,
+  GameName,
+  GameSlug,
+}) {
   // When this component is rendered, it wants to check if the user has already favourited the game, so needs this 'exists' state:
   const [exists, setExists] = useState(false);
   // This 'loading' state is to show the user something is happening once they've clicked:
   const [loading, setLoading] = useState(true);
   // This holds their Supabase ID, linked to their Clerk account:
   const [usersDatabaseID] = useContext(DBUserIDContext);
-
-  // TODO: Remove this if statement:
-  if (usersDatabaseID.id) {
-    console.log("add fave button user db id: ", usersDatabaseID.id);
-  }
 
   // On load and receipt of GameID into the button, query the DB to see if the user has favourited the game already:
   useEffect(() => {
@@ -48,7 +48,8 @@ export default function AddFavouriteGameButton({ GameID, GameName }) {
       const success = await InsertFavouriteGame(
         usersDatabaseID.id,
         GameID,
-        GameName
+        GameName,
+        GameSlug
       );
       if (success) {
         setExists(true);
@@ -60,26 +61,30 @@ export default function AddFavouriteGameButton({ GameID, GameName }) {
   }
 
   return (
-    <>
+    <div className="favourite-button flex gap-1">
       {loading ? (
-        ""
+        <QuantumSpinner size={"20"} />
       ) : exists ? (
-        <p>You have favourited this</p>
+        <p>&#11088;</p>
       ) : (
-        <p>Not favourite</p>
+        <p></p>
       )}
       <button
-        className="bg-orange-600 text-white p-6 rounded"
+        className="bg-orange-600 text-white p-2 rounded text-sm hover:bg-red-700"
         onClick={handleClick}
       >
-        {exists
-          ? loading
-            ? "loading..."
-            : "Click me to unFavourite"
-          : loading
-          ? "loading..."
-          : "Click me to Favourite"}
+        {exists ? (
+          loading ? (
+            <QuantumSpinner size={"20"} />
+          ) : (
+            "Click me to unFavourite"
+          )
+        ) : loading ? (
+          <QuantumSpinner size={"20"} />
+        ) : (
+          "Click me to Favourite"
+        )}
       </button>
-    </>
+    </div>
   );
 }

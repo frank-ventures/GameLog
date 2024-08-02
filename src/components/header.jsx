@@ -12,7 +12,6 @@ export default async function Header() {
 
   if (user) {
     const exists = await CheckUser(user.id);
-    console.log("Header check if user exists in db: ", exists);
     if (exists == undefined) {
       InsertNewUser(user.id, user.username);
     }
@@ -24,7 +23,10 @@ export default async function Header() {
       <div className="logo ">
         <Link href={"/"} className="flex items-center">
           <Image src={Logo} alt="Logo" className="h-16 w-auto" />
-          <h3 className="text-white">GameLog</h3>
+          <div className="logo-text flex flex-col">
+            <h3 className="text-white">GameLog</h3>
+            <p className="italic text-xs text-white">Vers: Alpha 0.1</p>
+          </div>
         </Link>
       </div>
       {user?.firstName ? (

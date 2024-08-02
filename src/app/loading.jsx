@@ -1,14 +1,10 @@
-"use client";
-import { quantum } from "ldrs";
+import QuantumSpinner from "../components/ldrsSpinners";
 
 export default function Loading() {
-  quantum.register();
-
   return (
-    <div className="h-full w-full flex flex-col justify-center items-center">
-      <p>I am loading...</p>
-
-      <l-quantum size="45" speed="1.75" color="black"></l-quantum>
+    <div className="min-h-screen w-screen flex flex-col justify-center items-center">
+      <p>Working on it...</p>
+      <QuantumSpinner size={"60"} />
     </div>
   );
 }

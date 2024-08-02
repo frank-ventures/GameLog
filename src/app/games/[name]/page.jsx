@@ -6,8 +6,9 @@ import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import FetchScreenshots from "@lib/IGDB/FetchScreenshots";
-import AddFavouriteGameButton from "@/src/components/addFavouriteButton";
+import ToggleFavouriteGameButton from "@/src/components/toggleFavouriteButton";
 import { SignedIn } from "@clerk/nextjs";
+import Hero from "@/src/components/hero";
 
 export default function IndividualGamePage({ params }) {
   const [bearer, setBearer] = useContext(BearerContext);
@@ -53,18 +54,20 @@ export default function IndividualGamePage({ params }) {
     getScreenshots(bearer, game);
   }, [game]);
 
-  // console.log("IndividualGamePage game: ", game);
+  console.log("IndividualGamePage game: ", game);
   // console.log("IndividualGamePage images: ", images);
-
+  console.log(game);
   return (
     <>
       {game ? (
         <>
-          <div className="game-hero h-48 flex justify-center items-end border-b-2 border-blue-400">
-            <h2>{game.name}</h2>
-          </div>
+          <Hero displayName={game.name} place={"gamePage"} />
           <SignedIn>
-            <AddFavouriteGameButton GameID={game.id} GameName={game.name} />
+            <ToggleFavouriteGameButton
+              GameID={game.id}
+              GameName={game.name}
+              GameSlug={game.slug}
+            />
           </SignedIn>
           <p>{game.summary}</p>
           <div className="screenshots-box border h-auto p-1 text-center">
