@@ -128,7 +128,7 @@
 }
 .fancy-link:hover {
   transition: all 500ms;
-  box-shadow: 2px 4px 1px rgb(var(--foreground-rgb));
+  box-shadow: 2px 4px 1px rgb(var(--second-background-colour));
 }
 .fancy-link::after {
   content: "";
@@ -145,7 +145,7 @@
 .fancy-link:hover::after {
   height: 0.15em;
   top: 100%;
-  background-color: var(--primary-orange-colour);
+  background-color: var(--second-background-colour);
 }
 .fancy-link::before {
   content: "";
@@ -162,7 +162,7 @@
 .fancy-link:hover::before {
   width: 100%;
   top: 100%;
-  background-color: var(--primary-orange-colour);
+  background-color: var(--second-background-colour);
 }
 
 .game-hero {

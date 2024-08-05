@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Logo from "@images/GameLog-1-1.png";
-import MainNavbar from "./mainNavbar";
+import MainNavbar from "./navigation/mainNavbar";
 import SearchBar from "./searchBar";
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
@@ -19,7 +19,7 @@ export default async function Header() {
   // console.log(user);
   // console.log(user.id);
   return (
-    <header className="header h-20 bg-slate-700 bg-opacity-80 flex items-center justify-between p-2">
+    <header className="header h-20 bg-slate-700 bg-opacity-80 flex items-center justify-between p-4">
       <div className="logo">
         <Link href={"/"} className="logo-link flex items-center">
           <Image src={Logo} alt="Logo" className="h-16 w-auto" />
@@ -29,14 +29,6 @@ export default async function Header() {
           </div>
         </Link>
       </div>
-      {user?.firstName ? (
-        <p className="text-white">
-          {" "}
-          Hey {user.firstName || user.username || you}! 👋
-        </p>
-      ) : (
-        <></>
-      )}
 
       <SearchBar />
 

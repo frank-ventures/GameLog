@@ -145,70 +145,68 @@ export default function SearchBar() {
   };
 
   return (
-    <>
-      <div
-        ref={searchRef}
-        className="search-bar w-2/6 bg-slate-300 rounded-lg p-2 relative"
+    <div
+      ref={searchRef}
+      className="search-bar bg-slate-300 w-2/6 rounded-lg p-2 relative"
+    >
+      {/* <p className="text-xs">For testing, Bearer Token: {bearer}</p> */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
       >
-        {/* <p className="text-xs">For testing, Bearer Token: {bearer}</p> */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          {bearer ? (
-            <input
-              type="text"
-              id="searchQuery"
-              placeholder="Search games"
-              className="p-1 rounded w-full"
-              autoComplete="off"
-              onChange={(e) => setUserQuery(e.target.value)}
-              onFocus={() => setResultIsOpen(games.length > 0)}
-              onKeyDown={handleKeyDown}
-            />
-          ) : (
-            <p className="p-1 rounded w-full bg-white">Loading search...</p>
-          )}
-        </form>
-        {resultIsOpen ? (
-          <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
-            <ul ref={selectedRef}>
-              {games.length > 0 ? (
-                games.map((game, index) => {
-                  setTimeout(() => {
-                    setChange();
-                  }, [50]);
-                  return (
-                    <li
-                      id={`${index + game.slug}`}
-                      key={index}
-                      className={
-                        (search === game.name) & (currentIndex === index)
-                          ? "active"
-                          : ""
-                      }
+        {bearer ? (
+          <input
+            type="text"
+            id="searchQuery"
+            placeholder="Search games"
+            className="p-1 rounded w-full"
+            autoComplete="off"
+            onChange={(e) => setUserQuery(e.target.value)}
+            onFocus={() => setResultIsOpen(games.length > 0)}
+            onKeyDown={handleKeyDown}
+          />
+        ) : (
+          <p className="p-1 rounded w-full bg-white">Loading search...</p>
+        )}
+      </form>
+      {resultIsOpen ? (
+        <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
+          <ul ref={selectedRef}>
+            {games.length > 0 ? (
+              games.map((game, index) => {
+                setTimeout(() => {
+                  setChange();
+                }, [50]);
+                return (
+                  <li
+                    id={`${index + game.slug}`}
+                    key={index}
+                    className={
+                      (search === game.name) & (currentIndex === index)
+                        ? "active"
+                        : ""
+                    }
+                  >
+                    <Link
+                      href={`/games/${game.slug}`}
+                      className="text-sm p-2 search-bar-link flex justify-between"
+                      onClick={() => setResultIsOpen(false)}
                     >
-                      <Link
-                        href={`/games/${game.slug}`}
-                        className="text-sm p-2 search-bar-link flex justify-between"
-                        onClick={() => setResultIsOpen(false)}
-                      >
-                        <p>{game.name}</p>
-                        <p className="text-sm italic">
-                          {formatDate(game.first_release_date)}
-                        </p>
-                      </Link>
-                    </li>
-                  );
-                })
-              ) : (
-                <p className="p-2">No results found</p>
-              )}
-            </ul>
-          </div>
-        ) : null}
-      </div>
-    </>
+                      <p>{game.name}</p>
+                      <p className="text-sm italic">
+                        {formatDate(game.first_release_date)}
+                      </p>
+                    </Link>
+                  </li>
+                );
+              })
+            ) : (
+              <p className="p-2">No results found</p>
+            )}
+          </ul>
+        </div>
+      ) : null}
+    </div>
   );
 }

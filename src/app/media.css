@@ -2,7 +2,16 @@
 
 /* --- --- Header --- ---  */
 
-/* */
+/* Hamburger Menu Backgrounds */
+.mobile-nav {
+  background-color: var(--primary-orange-colour);
+}
+
+.mobile-nav-backlay {
+  background-color: rgba(0, 0, 0, 0.48);
+}
+
+/*  */
 @media (max-width: 500px) {
   .header {
   }
@@ -14,6 +23,10 @@
     font-size: 0.7rem;
   }
 
+  .search-bar {
+    width: 50%;
+  }
+
   .intro-box {
     width: 80%;
 
@@ -23,6 +36,10 @@
 
 @media (min-width: 501px) and (max-width: 1000px) {
   .header {
+  }
+
+  .search-bar {
+    width: 50%;
   }
 
   .intro-box {
