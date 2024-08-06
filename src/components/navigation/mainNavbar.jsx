@@ -1,14 +1,15 @@
 "use client";
 import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./sidebar";
 
 export default function MainNavbar({ userId }) {
   const [width, setWidth] = useState();
   const [isOpen, setIsOpen] = useState(false);
-  const navRef = useRef(null);
 
+  // -- -- -- --
+  // -- Getting screen width for mobile view --
   // Function for updating width state:
   const updateWidth = () => {
     const newWidth = window.innerWidth;
@@ -23,8 +24,10 @@ export default function MainNavbar({ userId }) {
 
   // -- -- -- --
   // -- Hamburger --
-  // This handles when the Hamburger button is pressed:
+  // This handles when the Hamburger button is pressed, AND also when 'outside of' the link menu is clicked:
+  // (Thank you Isaac and Darren for suggesting adding 'onClick' to the div. Kings.)
   const handleClick = () => {
+    console.log("handleclick caled");
     setIsOpen(!isOpen);
   };
 
@@ -32,22 +35,6 @@ export default function MainNavbar({ userId }) {
   useEffect(() => {
     document.body.classList.toggle("mobile-nav-is-open", isOpen);
   }, [isOpen]);
-
-  // -- -- -- --
-  // -- Clicking outside of the mobile orange menu --
-  // This function checks if a click occurred outside of the referenced div and, if so, sets resultIsOpen to false:
-  const handleClickOutside = (event) => {
-    if (navRef.current && !navRef.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  };
-  // Adds an event listener for mousedown events to call handleClickOutside, and cleans up the event listener when the component is unmounted:
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   // -- -- -- --
   // Conditionally rendering mobile menu or desktop menu:
@@ -62,11 +49,11 @@ export default function MainNavbar({ userId }) {
       <>
         <Sidebar isOpen={isOpen} setIsOpen={handleClick} userId={userId} />
         {isOpen ? (
-          <div className="mobile-nav-backlay absolute h-screen w-screen top-0 left-0 flex items-center justify-center">
-            <div
-              ref={navRef}
-              className="mobile-nav flex items-center justify-center rounded-lg"
-            >
+          <div
+            onClick={handleClick}
+            className="mobile-nav-backlay absolute h-screen w-screen top-0 left-0 flex items-center justify-center"
+          >
+            <div className="mobile-nav flex items-center justify-center rounded-lg">
               <NavBarLinks
                 setIsOpen={handleClick}
                 window="mobile"
@@ -82,7 +69,6 @@ export default function MainNavbar({ userId }) {
 }
 
 export function NavBarLinks({ setIsOpen, window, userId }) {
-  console.log(window);
   const userButtonAppearance = {
     elements: {
       userButtonAvatarBox: "w-10 h-10", // Custom width and height
@@ -95,7 +81,7 @@ export function NavBarLinks({ setIsOpen, window, userId }) {
       <ul
         className={`flex ${
           window == "mobile"
-            ? "flex-col text-[2rem] items-start"
+            ? "flex-col text-[2rem] pl-4 items-start"
             : " items-center"
         }  justify-center gap-8 mr-6 text-white`}
       >

@@ -23,6 +23,8 @@ GameLog is an app and website where a player can keep track of which games they 
 - [IGDB for their API](https://www.igdb.com/)
 - [Denise Jans on Unsplash for the background image](https://unsplash.com/photos/black-sony-dslr-camera-on-white-surface-uIemlFWQSC4?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash)
 - [LDRS for the awesome, lightweight loaders!](https://uiball.com/ldrs/)
+- [Making a "Hamburger menu"]()
+- Handling the Hamburger Menu closing when tapping outside of the main box: [Isaac](https://github.com/isaacgomu) and [Darren](https://github.com/djsisson)
 
 ### The user should be able to see which platform the game result is on
 
@@ -65,3 +67,14 @@ The [Next.js docs were useful here](https://nextjs.org/docs/app/api-reference/fu
 Using React `useRef()` was key. This code helped: [Using useRef to scroll through a list of results](https://codesandbox.io/p/sandbox/react-autocomplete-forked-0o1hll?file=%2Fsrc%2Fcomponents%2FAutocomplete.js%3A60%2C15-62%2C25)
 
 As did [this code, to prevent the page from "bouncing" when a user scrolls](https://stackoverflow.com/questions/11039885/scrollintoview-causing-the-whole-page-to-move)
+
+### When the Hamburger navigation menu is open, I should be able to click/tap the area outside of the menu, to close the menu. _(As well as press the "X" button to close it)_
+
+I tried to implement the same code from the `searchbar`, which in that case adds an eventListener to the document _(via a useEffect)_ basically saying;
+
+"Any click that isn't within this search results box, should close the search results box".
+
+It didn't _quite_ translate; Clicking outside of the Hamburger menu did indeed close it, however, clicking the Hamburger button would close the menu, and then **immediately** toggle the state of `isOpen`, rendering the menu open again.
+
+The solution?
+Thanks to input from Isaac and Darren: quite simply add an `onClick` _(instead of anything else)_ to the <div> _behind_ the Hamburger menu, which toggles the open/closed state. This leaves the original button functionality intact.

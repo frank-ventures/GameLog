@@ -16,6 +16,8 @@ export default function SearchBar() {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
+  // -- -- -- --
+  // -- Handling 'clicking away' from the search bar results --
   // searchRef uses the useRef hook to reference the div containing the search bar and results, so we can handle if a user clicks away from the search bar:
   const searchRef = useRef(null);
   const selectedRef = useRef(null);
@@ -27,6 +29,16 @@ export default function SearchBar() {
     }
   };
 
+  // Adds an event listener for mousedown events to call handleClickOutside, and cleans up the event listener when the component is unmounted:
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // -- -- -- --
+  // -- Scrolling the currently selected search result into view --
   function setChange() {
     const selected = selectedRef?.current?.querySelector(".active");
     if (selected) {
@@ -37,6 +49,9 @@ export default function SearchBar() {
       });
     }
   }
+
+  // -- -- -- --
+  // -- Navigating search results with arrow keys --
   // This functions handles Arrow Key press events, to let a user scroll through the list, and also Enter key to click through to a page:
   const handleKeyDown = (e) => {
     // Reset:
@@ -80,14 +95,8 @@ export default function SearchBar() {
     return;
   };
 
-  // Adds an event listener for mousedown events to call handleClickOutside, and cleans up the event listener when the component is unmounted:
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
+  // -- -- -- --
+  // -- Fetching game results --
   // This useEffect handles the search function, but only starts after the user has finished typing:
   useEffect(() => {
     // Define the function:
@@ -134,6 +143,8 @@ export default function SearchBar() {
   //   });
   // }, [bearer, games]);
 
+  // -- -- -- --
+  // -- Formatting the Date --
   const formatDate = (timestamp) => {
     if (timestamp) {
       const date = new Date(timestamp * 1000);

@@ -9,12 +9,20 @@
   background-color: var(--primary-orange-colour);
   height: 70%;
   width: 70%;
+  border: 2px solid grey;
 }
 
 .mobile-nav-backlay {
   background-color: rgba(0, 0, 0, 0.48);
 }
 
+.mobile-nav a {
+  background-color: var(--secondary-dark-slate-colour);
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border: 2px solid black;
+}
 /* This gets added to the body when the hamburger menu is open */
 .mobile-nav-is-open {
   overflow-y: hidden;
