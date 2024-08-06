@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
 
-export default function Sidebar({ isOpen, setIsOpen, userId }) {
+export default function Sidebar({ isOpen, setIsOpen }) {
   return (
     <>
       <button

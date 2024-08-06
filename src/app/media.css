@@ -7,6 +7,8 @@
 /* -- Hamburger Menu Backgrounds -- */
 .mobile-nav {
   background-color: var(--primary-orange-colour);
+  height: 70%;
+  width: 70%;
 }
 
 .mobile-nav-backlay {
@@ -34,7 +36,7 @@
 
   .search-results {
     width: 200%;
-    left: -50%;
+    left: -55%;
   }
 
   .search-bar {
