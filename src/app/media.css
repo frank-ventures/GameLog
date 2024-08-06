@@ -10,10 +10,12 @@
   height: 70%;
   width: 80%;
   border: 2px solid grey;
+  z-index: 1000;
 }
 
 .mobile-nav-backlay {
   background-color: rgba(0, 0, 0, 0.48);
+  z-index: 5;
 }
 
 .mobile-nav a {

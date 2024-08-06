@@ -78,3 +78,8 @@ It didn't _quite_ translate; Clicking outside of the Hamburger menu did indeed c
 
 The solution?
 Thanks to input from Isaac and Darren: quite simply add an `onClick` _(instead of anything else)_ to the <div> _behind_ the Hamburger menu, which toggles the open/closed state. This leaves the original button functionality intact.
+
+** But the child div inherits the `onClick` of the parent div! When I click the menu box it closes as well!**
+
+[Annoying. The child component needs and onClick function which 'stops Propagation'](https://dev.to/kunal/how-to-stop-child-elements-from-inheriting-parent-element-s-onclick-in-react-583h)
+[And another solution with useRef](https://stackoverflow.com/questions/60811792/react-how-to-ignore-onclick-for-child-element/75562746#75562746)

@@ -26,8 +26,9 @@ export default function MainNavbar({ userId }) {
   // -- Hamburger --
   // This handles when the Hamburger button is pressed, AND also when 'outside of' the link menu is clicked:
   // (Thank you Isaac and Darren for suggesting adding 'onClick' to the div. Kings.)
-  const handleClick = () => {
+  const handleClick = (e) => {
     console.log("handleclick caled");
+
     setIsOpen(!isOpen);
   };
 
@@ -35,6 +36,11 @@ export default function MainNavbar({ userId }) {
   useEffect(() => {
     document.body.classList.toggle("mobile-nav-is-open", isOpen);
   }, [isOpen]);
+
+  function childDoesNothing(e) {
+    e.stopPropagation();
+    console.log("child click");
+  }
 
   // -- -- -- --
   // Conditionally rendering mobile menu or desktop menu:
@@ -53,7 +59,10 @@ export default function MainNavbar({ userId }) {
             onClick={handleClick}
             className="mobile-nav-backlay absolute h-screen w-screen top-0 left-0 flex items-center justify-center"
           >
-            <div className="mobile-nav flex items-center justify-center rounded-lg">
+            <div
+              onClick={(e) => childDoesNothing(e)}
+              className="mobile-nav flex items-center justify-center rounded-lg"
+            >
               <NavBarLinks
                 setIsOpen={handleClick}
                 window="mobile"
