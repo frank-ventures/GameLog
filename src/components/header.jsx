@@ -19,7 +19,7 @@ export default async function Header() {
   // console.log(user);
   // console.log(user.id);
   return (
-    <header className="header h-20 bg-slate-700 bg-opacity-80 flex items-center justify-between p-4">
+    <header className="header h-24 bg-slate-700 bg-opacity-80 flex items-center justify-between p-4">
       <div className="logo">
         <Link href={"/"} className="logo-link flex items-center">
           <Image src={Logo} alt="Logo" className="h-16 w-auto" />

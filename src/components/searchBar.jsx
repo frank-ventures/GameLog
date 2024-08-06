@@ -171,7 +171,7 @@ export default function SearchBar() {
         )}
       </form>
       {resultIsOpen ? (
-        <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
+        <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded border-[1px] border-slate-400">
           <ul ref={selectedRef}>
             {games.length > 0 ? (
               games.map((game, index) => {
