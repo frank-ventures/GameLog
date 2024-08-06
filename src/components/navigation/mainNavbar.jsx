@@ -22,6 +22,10 @@ export default function MainNavbar({ userId }) {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    document.body.classList.toggle("mobile-nav-is-open", isOpen);
+  }, [isOpen]);
+
   if (width > 999)
     return (
       <>
