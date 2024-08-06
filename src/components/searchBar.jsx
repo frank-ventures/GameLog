@@ -201,6 +201,7 @@ export default function SearchBar() {
                   >
                     <Link
                       href={`/games/${game.slug}`}
+                      draggable={false}
                       className="text-sm p-2 search-bar-link flex justify-between"
                       onClick={() => setResultIsOpen(false)}
                     >
