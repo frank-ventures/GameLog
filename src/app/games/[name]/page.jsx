@@ -1,11 +1,13 @@
 "use client";
-import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
-import FetchIndividualGame from "@lib/IGDB/FetchIndividualGame";
+// React and Next
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import FetchScreenshots from "@lib/IGDB/FetchScreenshots";
+//  Database and IGDB
+import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
+import FetchIndividualGame from "@lib/IGDB/FetchIndividualGame";
+// Components
 import ToggleFavouriteGameButton from "@/src/components/toggleFavouriteButton";
 import { SignedIn } from "@clerk/nextjs";
 import Hero from "@/src/components/hero";

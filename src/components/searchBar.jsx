@@ -1,13 +1,14 @@
 "use client";
+// React and Next
 import { useContext, useState, useEffect, useRef } from "react";
-import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
 import Link from "next/link";
-import FetchGames from "@lib/IGDB/FetchGames";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+//  Database and IGDB
+import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
+import FetchGames from "@lib/IGDB/FetchGames";
+// Other
 import NoCoverImage from "@images/no-cover-image.jpg";
-import { platform } from "os";
-// import FetchPlatforms from "@/lib/FetchPlatforms";
 
 export default function SearchBar() {
   const [bearer, setBearer] = useContext(BearerContext);
@@ -208,11 +209,11 @@ export default function SearchBar() {
                         height={75}
                       />
 
-                      <div className="search-result-game-title-info w-full pl-4 flex flex-col justify-evenly">
-                        <p>{game.name}</p>
-                        <p className="italic text-sm">
+                      <div className="search-result-game-title-info w-full px-4 flex flex-col justify-evenly">
+                        <p className="text-xl">{game.name}</p>
+                        <p className="italic text-sm text-right">
                           {game?.platforms?.length > 2
-                            ? `${game.platforms[0].name}  ${game.platforms[1].name} and more...`
+                            ? `${game.platforms[0].name},  ${game.platforms[1].name} and more...`
                             : game?.platforms
                                 ?.map((platform) => platform.name)
                                 .join(", ")}

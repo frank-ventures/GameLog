@@ -1,7 +1,9 @@
 "use client";
+// React and Next
 import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+// Components
 import Sidebar from "./sidebar";
 
 export default function MainNavbar({ userId }) {
