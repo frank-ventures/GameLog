@@ -26,7 +26,7 @@ export default function FavouritesDisplay({ fave, UserID }) {
               </h3>
               <Suspense fallback={<QuantumSpinner />}>
                 <ToggleFavouriteGameButton
-                  GameID={fave.igdb_game_id}
+                  GameID={fave.igdbgame_id}
                   GameName={fave.game_name}
                 />
               </Suspense>
@@ -39,7 +39,6 @@ export default function FavouritesDisplay({ fave, UserID }) {
         ) : (
           <p>uh oh. Something went wrong. Tell Frank</p>
         )}
-        ;
       </div>
     </>
   );

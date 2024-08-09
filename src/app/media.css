@@ -33,7 +33,11 @@
 }
 
 /* -- Header Items - Up to Large Mobile--  */
-
+@media (max-width: 320px) {
+  .search-results li img {
+    max-height: 99px;
+  }
+}
 @media (max-width: 500px) {
   .logo img {
     height: 3rem;
@@ -115,5 +119,19 @@
     gap: 1rem;
     padding: 1rem;
     margin-top: 2.5rem;
+  }
+}
+
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- ------ ------ ------ --- ---  */
+/* --- ---  Individual Game Page --- ---  */
+/* --- --- ------ ------ ------ --- ---  */
+
+/* -- Hero -- */
+
+@media (max-width: 600px) {
+  .hero-section h1 {
+    font-size: 2.2rem;
   }
 }

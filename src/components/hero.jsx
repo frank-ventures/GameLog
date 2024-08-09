@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero({ displayName, place, displayImage }) {
   return (
-    <div className="game-hero h-48 flex justify-center items-end border-b-2 border-blue-400 gap-4">
+    <div className="hero-section mt-24 h-48 flex justify-center items-end border-b-2 border-blue-400 gap-4">
       <h1>
         {place == "gamePage"
           ? displayName
