@@ -4,6 +4,7 @@ import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
 import Link from "next/link";
 import FetchGames from "@lib/IGDB/FetchGames";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 // import FetchPlatforms from "@/lib/FetchPlatforms";
 
 export default function SearchBar() {
@@ -189,6 +190,7 @@ export default function SearchBar() {
                 setTimeout(() => {
                   setChange();
                 }, [50]);
+
                 return (
                   <li
                     id={`${index + game.slug}`}
@@ -205,6 +207,17 @@ export default function SearchBar() {
                       className="text-sm p-2 search-bar-link flex justify-between"
                       onClick={() => setResultIsOpen(false)}
                     >
+                      {game.cover?.image_id ? (
+                        <Image
+                          className="search-bar-image"
+                          src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`}
+                          alt={`Cover art for ${game.name}`}
+                          width={50}
+                          height={50}
+                        />
+                      ) : (
+                        ""
+                      )}
                       <p>{game.name}</p>
                       <p className="text-sm italic">
                         {formatDate(game.first_release_date)}

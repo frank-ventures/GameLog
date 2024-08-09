@@ -4,7 +4,7 @@ export default async function FetchGames(bearer, userQuery, limit) {
   const clientId = process.env.TWITCH_TV_ID;
 
   const body = userQuery
-    ? `fields *; where name ~ *"${userQuery}"*; sort rating desc;`
+    ? `fields *, platforms.name, artworks.url, genres.name, cover.*; where name ~ *"${userQuery}"*; sort rating desc;`
     : "fields *;";
   const bodyLimit = limit ? `limit ${limit};` : "limit 10;";
 
@@ -12,10 +12,10 @@ export default async function FetchGames(bearer, userQuery, limit) {
     method: "POST",
     headers: {
       "Client-ID": clientId,
-      "Authorization": `Bearer ${bearer}`,
-      "Content-Type": "application/json"
+      Authorization: `Bearer ${bearer}`,
+      "Content-Type": "application/json",
     },
-    body: `${body} ${bodyLimit} `
+    body: `${body} ${bodyLimit} `,
   });
 
   if (!response.ok) {
@@ -24,5 +24,6 @@ export default async function FetchGames(bearer, userQuery, limit) {
   }
 
   const games = await response.json();
+
   return games;
 }

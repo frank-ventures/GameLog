@@ -5,7 +5,9 @@ import FetchScreenshots from "./FetchScreenshots";
 export default async function FetchIndividualGame(bearer, gameName) {
   const clientId = process.env.TWITCH_TV_ID;
 
-  const body = gameName ? `fields *; where slug ="${gameName}";` : "fields *;";
+  const body = gameName
+    ? `fields *, platforms.name, artworks.url, genres.name, cover.*; where slug ="${gameName}";`
+    : "fields *;";
 
   const response = await fetch("https://api.igdb.com/v4/games", {
     method: "POST",
