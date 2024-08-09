@@ -13,7 +13,6 @@ import Hero from "@/src/components/hero";
 export default function IndividualGamePage({ params }) {
   const [bearer, setBearer] = useContext(BearerContext);
   const [game, setGame] = useState([]);
-  const [images, setImages] = useState([]);
 
   // Get the slug from the url, to search the API:
   const gameName = params.name;
@@ -29,30 +28,11 @@ export default function IndividualGamePage({ params }) {
     } else {
       setGame([]);
     }
-
-    getScreenshots();
-  }
-
-  async function getScreenshots(bearer, game) {
-    if (bearer && game) {
-      try {
-        const newScreenshots = await FetchScreenshots(bearer, game);
-        setImages(newScreenshots);
-      } catch (error) {
-        console.error("Error fetching games:", error);
-      }
-    } else {
-      setImages([]);
-    }
   }
 
   useEffect(() => {
     getGame(bearer, gameName);
   }, [bearer, gameName]);
-
-  useEffect(() => {
-    getScreenshots(bearer, game);
-  }, [game]);
 
   console.log("IndividualGamePage game: ", game);
   // console.log("IndividualGamePage images: ", images);
@@ -73,7 +53,7 @@ export default function IndividualGamePage({ params }) {
           <div className="screenshots-box border h-auto p-1 text-center">
             <h3>Screenies</h3>
             <div className="screenshots-container flex flex-row overflow-scroll gap-4 p-1 border">
-              {images?.map((image) => (
+              {game.screenshots?.map((image) => (
                 <Image
                   key={image.id}
                   src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.jpg`}

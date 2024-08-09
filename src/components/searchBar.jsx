@@ -5,12 +5,13 @@ import Link from "next/link";
 import FetchGames from "@lib/IGDB/FetchGames";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import NoCoverImage from "@images/no-cover-image.jpg";
+import { platform } from "os";
 // import FetchPlatforms from "@/lib/FetchPlatforms";
 
 export default function SearchBar() {
   const [bearer, setBearer] = useContext(BearerContext);
   const [games, setGames] = useState([]);
-  const [platforms, setPlatforms] = useState([]);
   const [resultIsOpen, setResultIsOpen] = useState(false);
   const [userQuery, setUserQuery] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -133,17 +134,6 @@ export default function SearchBar() {
     return () => clearTimeout(timer);
   }, [bearer, userQuery]);
 
-  // // Future starting point for getting Platform data. Maybe wants to be displayed alongside 'game.first_release_date, or maybe in a popover on a hover effect?
-  // useEffect(() => {
-  //   games.forEach((game) => {
-  //     const getPlatform = async () => {
-  //       const newPlatform = await FetchPlatforms(bearer, game);
-  //       console.log(newPlatform[0].abbreviation);
-  //     };
-  //     getPlatform();
-  //   });
-  // }, [bearer, games]);
-
   // -- -- -- --
   // -- Formatting the Date --
   const formatDate = (timestamp) => {
@@ -159,7 +149,7 @@ export default function SearchBar() {
   return (
     <div
       ref={searchRef}
-      className="search-bar bg-slate-300 w-2/6 rounded-lg p-2 relative"
+      className="search-bar bg-slate-300 w-2/5 rounded-lg p-2 relative"
     >
       {/* <p className="text-xs">For testing, Bearer Token: {bearer}</p> */}
       <form
@@ -183,7 +173,7 @@ export default function SearchBar() {
         )}
       </form>
       {resultIsOpen ? (
-        <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded border-[1px] border-slate-400">
+        <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-96 w-full overflow-scroll bg-slate-800 text-white rounded border-[1px] border-slate-400">
           <ul ref={selectedRef}>
             {games.length > 0 ? (
               games.map((game, index) => {
@@ -207,22 +197,33 @@ export default function SearchBar() {
                       className="text-sm p-2 search-bar-link flex justify-between"
                       onClick={() => setResultIsOpen(false)}
                     >
-                      {game.cover?.image_id ? (
-                        <Image
-                          className="search-bar-image"
-                          src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg`}
-                          alt={`Cover art for ${game.name}`}
-                          width={50}
-                          height={50}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <p>{game.name}</p>
+                      <Image
+                        src={
+                          game.cover?.image_id
+                            ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
+                            : NoCoverImage
+                        }
+                        alt={`Cover art for ${game.name}`}
+                        width={75}
+                        height={75}
+                      />
+
+                      <div className="search-result-game-title-info w-full pl-4 flex flex-col justify-evenly">
+                        <p>{game.name}</p>
+                        <p className="italic text-sm">
+                          {game?.platforms?.length > 2
+                            ? `${game.platforms[0].name}  ${game.platforms[1].name} and more...`
+                            : game?.platforms
+                                ?.map((platform) => platform.name)
+                                .join(", ")}
+                        </p>
+                      </div>
                       <p className="text-sm italic">
                         {formatDate(game.first_release_date)}
                       </p>
                     </Link>
+                    {/* TODO: SOME CONDITIONAL FOR IF THE USER HAS FAVOURITED IT, AND IF NOT, A MINI BUTTON TO DO SO.
+                    Like a filled in star icon, and a non filled in star icon. */}
                   </li>
                 );
               })

@@ -25,6 +25,7 @@ GameLog is an app and website where a player can keep track of which games they 
 - [LDRS for the awesome, lightweight loaders!](https://uiball.com/ldrs/)
 - Making a "Hamburger menu": [One](https://medium.com/@a.pirus/how-to-create-a-responsive-navigation-bar-in-next-js-13-e5540789a017), [Two](https://stackoverflow.com/questions/73619917/how-to-implement-responsive-mobile-nav-menu-with-next-js), [Three](https://jacobhocker.medium.com/creating-an-animated-hamburger-menu-in-nextjs-tailwind-css-9e332d428811)
 - Handling the Hamburger Menu closing when tapping outside of the main box: [Isaac](https://github.com/isaacgomu) and [Darren](https://github.com/djsisson)
+- [Thanks to this projects collaborators for unlocking far better IGDB queries!](https://github.com/akuyra1/week12-assignment/tree/main)
 
 ### The user should be able to see which platform the game result is on
 

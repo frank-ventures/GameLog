@@ -4,9 +4,9 @@ export default async function FetchGames(bearer, userQuery, limit) {
   const clientId = process.env.TWITCH_TV_ID;
 
   const body = userQuery
-    ? `fields *, platforms.name, artworks.url, genres.name, cover.*; where name ~ *"${userQuery}"*; sort rating desc;`
+    ? `fields id, artworks.url, cover.id, cover.image_id, first_release_date, genres.*, name, platforms.name, screenshots.id, screenshots.image_id, similar_games.*, slug, url;  where name ~ *"${userQuery}"*; sort rating desc;`
     : "fields *;";
-  const bodyLimit = limit ? `limit ${limit};` : "limit 10;";
+  const searchLimit = limit ? `limit ${limit};` : "limit 10;";
 
   const response = await fetch("https://api.igdb.com/v4/games", {
     method: "POST",
@@ -15,7 +15,7 @@ export default async function FetchGames(bearer, userQuery, limit) {
       Authorization: `Bearer ${bearer}`,
       "Content-Type": "application/json",
     },
-    body: `${body} ${bodyLimit} `,
+    body: `${body} ${searchLimit} `,
   });
 
   if (!response.ok) {

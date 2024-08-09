@@ -1,12 +1,10 @@
 "use server";
 
-import FetchScreenshots from "./FetchScreenshots";
-
 export default async function FetchIndividualGame(bearer, gameName) {
   const clientId = process.env.TWITCH_TV_ID;
 
   const body = gameName
-    ? `fields *, platforms.name, artworks.url, genres.name, cover.*; where slug ="${gameName}";`
+    ? `fields id, artworks.url, cover.id, cover.image_id, first_release_date, genres.*, name, platforms.name, screenshots.id, screenshots.image_id, similar_games.*, slug, summary, url; where slug ="${gameName}";`
     : "fields *;";
 
   const response = await fetch("https://api.igdb.com/v4/games", {
@@ -26,6 +24,8 @@ export default async function FetchIndividualGame(bearer, gameName) {
 
   const gamesarray = await response.json();
   const thisGame = gamesarray[0];
+
+  console.log(thisGame);
 
   return thisGame;
 }

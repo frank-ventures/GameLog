@@ -58,6 +58,12 @@
 
 @media (min-width: 501px) and (max-width: 1000px) {
   .search-bar {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1300px) {
+  .search-bar {
     width: 40%;
   }
 }
