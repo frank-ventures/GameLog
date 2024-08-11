@@ -59,7 +59,7 @@ export default function MainNavbar({ userId }) {
         {isOpen ? (
           <div
             onClick={handleClick}
-            className="mobile-nav-backlay absolute h-screen w-screen top-0 left-0 flex items-center justify-center"
+            className="mobile-nav-backlay absolute h-screen w-screen left-0 flex items-center justify-center"
           >
             <div
               onClick={(e) => childDoesNothing(e)}
