@@ -4,7 +4,7 @@ import FavouritesDisplay from "@/src/components/favouritesDisplay";
 import Hero from "@/src/components/hero";
 import PageBackground from "@/src/components/homeBackground";
 // Database and IGDB
-import FetchLogs from "@/src/lib/Supabase/FetchLogs";
+// // import FetchLogs from "@/src/lib/Supabase/FetchLogs";
 import GetDBUserID from "@/src/lib/Supabase/DBUserID";
 import FetchFavourites from "@/src/lib/Supabase/FetchFavourites";
 
