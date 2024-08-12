@@ -2,7 +2,7 @@
 import CenteredInfo from "@/src/components/centeredInfo";
 import FavouritesDisplay from "@/src/components/favouritesDisplay";
 import Hero from "@/src/components/hero";
-import PageBackground from "@/src/components/homeBackground";
+import PageBackground from "@/src/components/PageBackground";
 // Database and IGDB
 // // import FetchLogs from "@/src/lib/Supabase/FetchLogs";
 import GetDBUserID from "@/src/lib/Supabase/DBUserID";

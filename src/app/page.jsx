@@ -1,4 +1,4 @@
-import PageBackground from "@components/homeBackground";
+import PageBackground from "@components/PageBackground";
 import CenteredInfo from "../components/centeredInfo";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 

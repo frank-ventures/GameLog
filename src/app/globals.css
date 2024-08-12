@@ -120,6 +120,7 @@
 
 .home-page-main {
   background-image: url("../../public/images/home-page-background.jpg");
+  margin-bottom: -6.5rem;
 }
 
 .home-page-main-overlay {

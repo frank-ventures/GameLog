@@ -1,5 +1,5 @@
 import { SignIn } from "@clerk/nextjs";
-import PageBackground from "@/src/components/homeBackground";
+import PageBackground from "@/src/components/PageBackground";
 
 export default function Page() {
   return (
