@@ -79,7 +79,7 @@ export default async function IndividualGamePage({ params }) {
                         source={similar.cover.image_id}
                         alt={`${similar.name} cover art`}
                         width={150}
-                        height={320}
+                        height={200}
                         className="game-screenshot-image max-w-none rounded-md shadow shadow-black"
                       />
 

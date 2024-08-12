@@ -24,12 +24,13 @@ export default function FavouritesDisplay({ fave, UserID }) {
               <h3 className="text-center">
                 <Link href={`/games/${fave.game_slug}`}>{fave.game_name}</Link>
               </h3>
-              <Suspense fallback={<QuantumSpinner />}>
+              {/* TODO: MAKE IT SO THAT THIS WORKS ON THE PROFILE PAGE */}
+              {/* <Suspense fallback={<QuantumSpinner />}>
                 <ToggleFavouriteGameButton
                   GameID={fave.igdbgame_id}
                   GameName={fave.game_name}
                 />
-              </Suspense>
+              </Suspense> */}
             </div>
             <div className="game-fave-log flex flex-col  gap-2 w-full p-2">
               <h3>Logs</h3>
