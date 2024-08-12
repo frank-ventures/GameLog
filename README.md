@@ -4,18 +4,21 @@
 
 GameLog is an app and website where a player can keep track of which games they own, are playing, and add "notes to self" for what they're doing.
 
+![Screenshot of home page](./public/GameLog-home-page.jpg)
+
 # Features
 
 - The search bar will check [IGDB](https://www.igdb.com/) for what you've searched, and give you some of the most relevant results.
-- You can go to an individual game page to see info about that game.
+- You can go to an individual game page to see info about that game, including similar games.
 - You can add individual games to your own favourites.
 - Not only can you sign up and log in, but you have your own user page. Lucky thing!
 - You can add logs to your favourited games via your user page.
 
 # Future Features
 
-[] Sort your favourited games by recently updated, recently added, alphabetically...
 [X] Add new logs
+[X] Mobile friendly
+[] Sort your favourited games by recently updated, recently added, alphabetically...
 [] Edit existing logs
 
 # Mentions & Credits
