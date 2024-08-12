@@ -11,16 +11,17 @@ export default async function CenteredInfo({ place, displayType }) {
   const user = await currentUser();
 
   return (
-    <div className="intro-box bg-orange-600 h-3/6 w-3/6 p-16 rounded-2xl bg-opacity-60 shadow flex flex-col items-center justify-center mb-4 text-white relative">
-      <h1>GameLog</h1>
-      {place == "home" ? (
-        <h2>Your Personal Games Journal</h2>
-      ) : place == "sign-in" ? (
-        <h3>You need to sign in to see your profile page.</h3>
-      ) : (
-        ""
-      )}
-
+    <div className="intro-box bg-orange-600  h-4/6 w-3/6 p-16 rounded-2xl bg-opacity-60 shadow flex flex-col items-center justify-evenly text-center mb-4 text-white relative">
+      <div className="intro-box-title-text ">
+        <h1>GameLog</h1>
+        {place == "home" ? (
+          <h2>Your Personal Games Journal</h2>
+        ) : place == "sign-in" ? (
+          <h3>You need to sign in to see your profile page.</h3>
+        ) : (
+          ""
+        )}
+      </div>
       {/* If signed out */}
       {place == "home" ? (
         <SignedOut>

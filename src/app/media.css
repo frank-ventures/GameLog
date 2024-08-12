@@ -1,0 +1,200 @@
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- ------ --- ---  */
+/* --- --- Header --- ---  */
+/* --- --- ------ --- ---  */
+
+/* -- Hamburger Menu Backgrounds -- */
+.mobile-nav {
+  background-color: var(--primary-orange-colour);
+  height: 70%;
+  width: 80%;
+  border: 2px solid grey;
+  z-index: 1000;
+}
+
+/* Start the Hamburger Menu on mobile at the bottom of the screen */
+.mobile-nav-backlay {
+  background-color: rgba(0, 0, 0, 0.48);
+  z-index: 50;
+  top: -88dvh;
+}
+
+.mobile-nav a {
+  background-color: var(--secondary-dark-slate-colour);
+  padding: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border: 2px solid black;
+  font-size: large;
+}
+
+/* This gets added to the body when the hamburger menu is open */
+.mobile-nav-is-open {
+  overflow-y: hidden;
+}
+
+/* -- Header Items - Up to Large Mobile--  */
+@media (max-width: 320px) {
+  .search-results li img {
+    max-height: 99px;
+  }
+}
+@media (max-width: 500px) {
+  /* On Mobile, put the header at the bottom of the page */
+  /* and adjust the rest of the pages as needed */
+  .header {
+    bottom: 0;
+    box-shadow: 0px -3px 10px black;
+  }
+
+  main {
+    padding-bottom: 6.5rem;
+  }
+
+  .home-page-main-overlay {
+    padding: 0;
+  }
+
+  /* Other Mobile Adjustments: */
+  .logo img {
+    height: 3rem;
+  }
+
+  .logo-link {
+    flex-direction: column;
+  }
+  .logo-text * {
+    font-size: 0.7rem;
+  }
+
+  .search-results {
+    width: 200%;
+    left: -55%;
+  }
+
+  .search-bar {
+    width: 50%;
+  }
+}
+
+@media (min-width: 501px) {
+  /* On Tablet/Desktop, put the header at the top of the page */
+
+  .header {
+    top: 0px;
+  }
+  main {
+    padding-bottom: 0;
+  }
+  .mobile-nav-backlay {
+    top: 0;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 1000px) {
+  /* On Tablet/Desktop, put the header at the top of the page */
+
+  .search-bar {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1300px) {
+  .search-bar {
+    width: 40%;
+  }
+}
+
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- ------ --- ---  */
+/* --- --- Search Bar --- ---  */
+/* --- --- ------ --- ---  */
+
+/* -- Results -- */
+
+@media (max-width: 500px) {
+  /* On Mobile, put the search results above the search bar */
+  .search-results {
+    bottom: 4.5rem;
+    box-shadow: 0px -2px 5px 2px black;
+  }
+}
+
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- ------ ------ ------ --- ---  */
+/* --- --- Home Page Intro Box --- ---  */
+/* --- --- ------ ------ ------ --- ---  */
+
+@media (max-width: 500px) {
+  .intro-box {
+    width: 80%;
+    height: 65%;
+    padding: 1rem;
+  }
+  .intro-box h1 {
+    font-size: 36px;
+    justify-self: start;
+  }
+  .intro-box h2 {
+    font-size: 20px;
+  }
+  .intro-box h3 {
+    font-size: medium;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 1000px) {
+  .intro-box {
+    width: 65%;
+    height: 60%;
+    padding: 2rem;
+  }
+}
+
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- ------ ------ ------ --- ---  */
+/* --- --- Clerk sign up box --- ---  */
+/* --- --- ------ ------ ------ --- ---  */
+@media (max-width: 500px) {
+  .cl-main,
+  .cl-form,
+  .cl-internal-w8uam1 {
+    gap: 0.5rem;
+  }
+  .cl-card {
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 2.5rem;
+  }
+}
+
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- ------ ------ ------ --- ---  */
+/* --- ---  Individual Game Page --- ---  */
+/* --- --- ------ ------ ------ --- ---  */
+
+/* -- Hero -- */
+
+@media (max-width: 375px) {
+  .hero-section h1 {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 600px) {
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-section {
+    margin-top: 0;
+  }
+}

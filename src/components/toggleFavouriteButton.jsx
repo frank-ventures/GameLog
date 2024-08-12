@@ -1,3 +1,4 @@
+"use client";
 import { useContext, useEffect, useState } from "react";
 import CheckFavouriteExists from "../lib/Supabase/CheckFavouriteExists";
 import InsertFavouriteGame from "../lib/Supabase/InsertFavourite";

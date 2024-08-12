@@ -1,21 +1,26 @@
 "use client";
+// React and Next
 import { useContext, useState, useEffect, useRef } from "react";
-import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
 import Link from "next/link";
-import FetchGames from "@lib/IGDB/FetchGames";
 import { useRouter } from "next/navigation";
-// import FetchPlatforms from "@/lib/FetchPlatforms";
+import Image from "next/image";
+//  Database and IGDB
+import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
+import FetchGames from "@lib/IGDB/FetchGames";
+// Other
+import NoCoverImage from "@images/no-cover-image.jpg";
 
 export default function SearchBar() {
   const [bearer, setBearer] = useContext(BearerContext);
   const [games, setGames] = useState([]);
-  const [platforms, setPlatforms] = useState([]);
   const [resultIsOpen, setResultIsOpen] = useState(false);
   const [userQuery, setUserQuery] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [search, setSearch] = useState("");
   const router = useRouter();
 
+  // -- -- -- --
+  // -- Handling 'clicking away' from the search bar results --
   // searchRef uses the useRef hook to reference the div containing the search bar and results, so we can handle if a user clicks away from the search bar:
   const searchRef = useRef(null);
   const selectedRef = useRef(null);
@@ -27,6 +32,16 @@ export default function SearchBar() {
     }
   };
 
+  // Adds an event listener for mousedown events to call handleClickOutside, and cleans up the event listener when the component is unmounted:
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // -- -- -- --
+  // -- Scrolling the currently selected search result into view --
   function setChange() {
     const selected = selectedRef?.current?.querySelector(".active");
     if (selected) {
@@ -37,6 +52,9 @@ export default function SearchBar() {
       });
     }
   }
+
+  // -- -- -- --
+  // -- Navigating search results with arrow keys --
   // This functions handles Arrow Key press events, to let a user scroll through the list, and also Enter key to click through to a page:
   const handleKeyDown = (e) => {
     // Reset:
@@ -80,14 +98,8 @@ export default function SearchBar() {
     return;
   };
 
-  // Adds an event listener for mousedown events to call handleClickOutside, and cleans up the event listener when the component is unmounted:
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
+  // -- -- -- --
+  // -- Fetching game results --
   // This useEffect handles the search function, but only starts after the user has finished typing:
   useEffect(() => {
     // Define the function:
@@ -123,17 +135,8 @@ export default function SearchBar() {
     return () => clearTimeout(timer);
   }, [bearer, userQuery]);
 
-  // // Future starting point for getting Platform data. Maybe wants to be displayed alongside 'game.first_release_date, or maybe in a popover on a hover effect?
-  // useEffect(() => {
-  //   games.forEach((game) => {
-  //     const getPlatform = async () => {
-  //       const newPlatform = await FetchPlatforms(bearer, game);
-  //       console.log(newPlatform[0].abbreviation);
-  //     };
-  //     getPlatform();
-  //   });
-  // }, [bearer, games]);
-
+  // -- -- -- --
+  // -- Formatting the Date --
   const formatDate = (timestamp) => {
     if (timestamp) {
       const date = new Date(timestamp * 1000);
@@ -145,70 +148,92 @@ export default function SearchBar() {
   };
 
   return (
-    <>
-      <div
-        ref={searchRef}
-        className="search-bar w-2/6 bg-slate-300 rounded-lg p-2 relative"
+    <div
+      ref={searchRef}
+      className="search-bar bg-slate-300 w-2/5 rounded-lg p-2 relative"
+    >
+      {/* <p className="text-xs">For testing, Bearer Token: {bearer}</p> */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
       >
-        {/* <p className="text-xs">For testing, Bearer Token: {bearer}</p> */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          {bearer ? (
-            <input
-              type="text"
-              id="searchQuery"
-              placeholder="Search games"
-              className="p-1 rounded w-full"
-              autoComplete="off"
-              onChange={(e) => setUserQuery(e.target.value)}
-              onFocus={() => setResultIsOpen(games.length > 0)}
-              onKeyDown={handleKeyDown}
-            />
-          ) : (
-            <p className="p-1 rounded w-full bg-white">Loading search...</p>
-          )}
-        </form>
-        {resultIsOpen ? (
-          <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-60 w-full overflow-scroll bg-slate-800 text-white rounded">
-            <ul ref={selectedRef}>
-              {games.length > 0 ? (
-                games.map((game, index) => {
-                  setTimeout(() => {
-                    setChange();
-                  }, [50]);
-                  return (
-                    <li
-                      id={`${index + game.slug}`}
-                      key={index}
-                      className={
-                        (search === game.name) & (currentIndex === index)
-                          ? "active"
-                          : ""
-                      }
+        {bearer ? (
+          <input
+            type="text"
+            id="searchQuery"
+            placeholder="Search games"
+            className="p-1 rounded w-full"
+            autoComplete="off"
+            onChange={(e) => setUserQuery(e.target.value)}
+            onFocus={() => setResultIsOpen(games.length > 0)}
+            onKeyDown={handleKeyDown}
+          />
+        ) : (
+          <p className="p-1 rounded w-full bg-white">Loading search...</p>
+        )}
+      </form>
+      {resultIsOpen ? (
+        <div className="search-results absolute left-0 flex flex-col gap-1 mt-2 max-h-96 w-full overflow-scroll bg-slate-800 text-white rounded border-[1px] border-slate-400">
+          <ul ref={selectedRef}>
+            {games.length > 0 ? (
+              games.map((game, index) => {
+                setTimeout(() => {
+                  setChange();
+                }, [50]);
+
+                return (
+                  <li
+                    id={`${index + game.slug}`}
+                    key={index}
+                    className={
+                      (search === game.name) & (currentIndex === index)
+                        ? "active"
+                        : ""
+                    }
+                  >
+                    <Link
+                      href={`/games/${game.slug}`}
+                      draggable={false}
+                      className="text-sm p-2 search-bar-link flex justify-between"
+                      onClick={() => setResultIsOpen(false)}
                     >
-                      <Link
-                        href={`/games/${game.slug}`}
-                        className="text-sm p-2 search-bar-link flex justify-between"
-                        onClick={() => setResultIsOpen(false)}
-                      >
-                        <p>{game.name}</p>
-                        <p className="text-sm italic">
-                          {formatDate(game.first_release_date)}
+                      <Image
+                        src={
+                          game.cover?.image_id
+                            ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
+                            : NoCoverImage
+                        }
+                        alt={`Cover art for ${game.name}`}
+                        width={75}
+                        height={75}
+                      />
+
+                      <div className="search-result-game-title-info w-full px-4 flex flex-col justify-evenly">
+                        <p className="text-xl">{game.name}</p>
+                        <p className="italic text-sm text-right">
+                          {game?.platforms?.length > 2
+                            ? `${game.platforms[0].name},  ${game.platforms[1].name} and more...`
+                            : game?.platforms
+                                ?.map((platform) => platform.name)
+                                .join(", ")}
                         </p>
-                      </Link>
-                    </li>
-                  );
-                })
-              ) : (
-                <p className="p-2">No results found</p>
-              )}
-            </ul>
-          </div>
-        ) : null}
-      </div>
-    </>
+                      </div>
+                      <p className="text-sm italic">
+                        {formatDate(game.first_release_date)}
+                      </p>
+                    </Link>
+                    {/* TODO: SOME CONDITIONAL FOR IF THE USER HAS FAVOURITED IT, AND IF NOT, A MINI BUTTON TO DO SO.
+                    Like a filled in star icon, and a non filled in star icon. */}
+                  </li>
+                );
+              })
+            ) : (
+              <p className="p-2">No results found</p>
+            )}
+          </ul>
+        </div>
+      ) : null}
+    </div>
   );
 }

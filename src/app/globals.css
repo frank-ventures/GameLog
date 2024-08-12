@@ -40,6 +40,7 @@
   margin: 0;
   padding: 0;
 }
+
 /* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
 
 /* --- --- Header --- ---  */
@@ -48,9 +49,8 @@
 .header {
   box-shadow: 0px 3px 10px black;
   width: 100dvw;
-  position: absolute;
+  position: fixed;
   z-index: 10;
-  top: 0;
   left: 0;
 }
 
@@ -67,12 +67,60 @@
   background-color: var(--second-background-colour);
 }
 
+.search-results {
+  box-shadow: 0px 2px 5px 2px black;
+}
+
+/* -- Fancy Nav Links-- */
+.fancy-link {
+  position: relative;
+}
+.fancy-link:hover {
+  transition: all 500ms;
+  box-shadow: 2px 4px 1px rgb(var(--second-background-colour));
+}
+.fancy-link::after {
+  content: "";
+  position: absolute;
+  left: -0.5em;
+  top: 0;
+  background-color: var(--secondary-grey-colour);
+
+  height: 100%;
+  width: 0.15em;
+
+  transition: all 450ms;
+}
+.fancy-link:hover::after {
+  height: 0.15em;
+  top: 100%;
+  background-color: var(--second-background-colour);
+}
+.fancy-link::before {
+  content: "";
+  position: absolute;
+  left: -0.5em;
+  top: 100%;
+  background-color: var(--secondary-grey-colour);
+
+  height: 0.15em;
+  width: 0%;
+
+  transition: all 250ms;
+}
+.fancy-link:hover::before {
+  width: 100%;
+  top: 100%;
+  background-color: var(--second-background-colour);
+}
+
 /* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
 
 /* --- --- Home Page background --- ---  */
 
 .home-page-main {
   background-image: url("../../public/images/home-page-background.jpg");
+  margin-bottom: -6.5rem;
 }
 
 .home-page-main-overlay {
@@ -122,47 +170,58 @@
   }
 }
 
-.fancy-link {
+/* --- --- --- --- --- --- --- --- ** ** --- --- --- --- --- --- --- ---  */
+
+/* --- --- Individual Game Page --- ---  */
+
+/* -- Similar Games -- */
+
+/* This applies to our Individual Similar Games. When the user hovers on them, it applies a nice overlay showing the game name. */
+
+/* The individual game card: */
+.similar-game-individual {
   position: relative;
 }
-.fancy-link:hover {
-  transition: all 500ms;
-  box-shadow: 2px 4px 1px rgb(var(--foreground-rgb));
-}
-.fancy-link::after {
+/* The translucent white overlay: */
+.similar-game-individual::after {
   content: "";
   position: absolute;
-  left: -0.5em;
+  left: 0;
   top: 0;
   background-color: var(--secondary-grey-colour);
+  pointer-events: none;
 
   height: 100%;
-  width: 0.15em;
+  width: 100%;
 
-  transition: all 450ms;
-}
-.fancy-link:hover::after {
-  height: 0.15em;
-  top: 100%;
-  background-color: var(--primary-orange-colour);
-}
-.fancy-link::before {
-  content: "";
-  position: absolute;
-  left: -0.5em;
-  top: 100%;
-  background-color: var(--secondary-grey-colour);
-
-  height: 0.15em;
-  width: 0%;
+  opacity: 0%;
 
   transition: all 250ms;
 }
-.fancy-link:hover::before {
-  width: 100%;
-  top: 100%;
-  background-color: var(--primary-orange-colour);
+
+/* The hover effects: */
+.similar-game-individual:hover::after {
+  opacity: 25%;
+}
+.similar-game-individual:hover {
+  .similar-game-individual-text {
+    opacity: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    transition: all 250ms ease-in;
+  }
 }
 
-.game-hero {
+/* The text overlay: */
+.similar-game-individual-text {
+  opacity: 0;
+  position: absolute;
+  z-index: 5;
+  bottom: 0;
+  left: 0;
+
+  height: 50%;
+  width: 100%;
+  color: white;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
 }
