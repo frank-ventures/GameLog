@@ -30,10 +30,6 @@ GameLog is an app and website where a player can keep track of which games they 
 - Handling the Hamburger Menu closing when tapping outside of the main box: [Isaac](https://github.com/isaacgomu) and [Darren](https://github.com/djsisson)
 - [Thanks to this projects collaborators for unlocking far better IGDB queries!](https://github.com/akuyra1/week12-assignment/tree/main)
 
-### The user should be able to see which platform the game result is on
-
-Annoyingly, when you search for a game, the result might be displaying a GBA game when you actually are looking for a PC game. To fix this requires more wrangling with the API.
-
 # Process, Issues and Solutions
 
 If you're interested, here's a bit of a "build log" describing issues faced on the project, and solutions to them.
@@ -87,3 +83,9 @@ Thanks to input from Isaac and Darren: quite simply add an `onClick` _(instead o
 
 [Annoying. The child component needs and onClick function which 'stops Propagation'](https://dev.to/kunal/how-to-stop-child-elements-from-inheriting-parent-element-s-onclick-in-react-583h)
 [And another solution with useRef](https://stackoverflow.com/questions/60811792/react-how-to-ignore-onclick-for-child-element/75562746#75562746)
+
+### The user should be able to see which platform the game result is on
+
+Annoyingly, when you search for a game, the result might be displaying a GBA game when you actually are looking for a PC game. To fix this required more wrangling with the API.
+
+[Thanks to this project](https://github.com/akuyra1/week12-assignment/tree/main), the 'deeper dive' into the IGDB API was discovered and now platforms (and cover art!) displays on the search result.
