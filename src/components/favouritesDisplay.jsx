@@ -11,8 +11,6 @@ import { Suspense } from "react";
 import QuantumSpinner from "./ldrsSpinners";
 
 export default function FavouritesDisplay({ UserFaves, UserID }) {
-  // console.log("FavouritesDisplay logging UserFaves: ", UserFaves);
-
   return (
     <>
       <div className="user-favourites flex flex-col gap-2 mx-4 border border-gray-400">

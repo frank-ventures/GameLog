@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 export default function CoverImage({ source, alt, width, height, className }) {
-  console.log("cover image: ", source);
   return (
     <>
       <Image
