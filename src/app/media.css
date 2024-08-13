@@ -11,12 +11,13 @@
   width: 80%;
   border: 2px solid grey;
   z-index: 1000;
+  margin-bottom: 5rem;
 }
 
 /* Start the Hamburger Menu on mobile at the bottom of the screen */
 .mobile-nav-backlay {
-  background-color: rgba(0, 0, 0, 0.48);
-  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 49;
   top: -88dvh;
 }
 
