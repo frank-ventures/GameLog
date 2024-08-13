@@ -31,14 +31,6 @@ export default async function UserProfilePage() {
           <Suspense fallback="loading...">
             <h2>Your Favourited Games</h2>
             <FavouritesDisplay UserFaves={userFaves} UserID={userDBID.id} />
-            {/* {userFaves.map((favourite) => {
-              console.log("I AM A LOG N THE .MAP");
-              return (
-                <>
-                  <FavouritesDisplay fave={favourite} UserID={userDBID.id} />
-                </>
-              );
-            })} */}
           </Suspense>
         ) : (
           // If the user doesn't have favourites:
