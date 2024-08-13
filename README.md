@@ -77,7 +77,7 @@ I tried to implement the same code from the `searchbar`, which in that case adds
 It didn't _quite_ translate; Clicking outside of the Hamburger menu did indeed close it, however, clicking the Hamburger button would close the menu, and then **immediately** toggle the state of `isOpen`, rendering the menu open again.
 
 The solution?
-Thanks to input from Isaac and Darren: quite simply add an `onClick` _(instead of anything else)_ to the <div> _behind_ the Hamburger menu, which toggles the open/closed state. This leaves the original button functionality intact.
+Thanks to input from Isaac and Darren: quite simply add an `onClick` _(instead of anything else)_ to the `<div>` _behind_ the Hamburger menu, which toggles the open/closed state. This leaves the original button functionality intact.
 
 ** But the child div inherits the `onClick` of the parent div! When I click the menu box it closes as well!**
 
