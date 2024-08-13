@@ -18,14 +18,17 @@ export default async function IndividualGamePage({ params }) {
   const bearer = await GetBearerToken();
   // Get the slug from the url, to search the API:
   const gameName = params.name;
+  console.log("Indigamepage:", bearer, gameName);
 
   let game;
   try {
+    console.log("Indigamepage: I am trying to fetch a game");
     game = await FetchIndividualGame(bearer, gameName);
+    console.log("Indigamepage, I have fetched game successfully!");
   } catch (error) {
     console.error("Error fetching games:", error);
   }
-  console.log("IndividualGamePage game: ", game);
+  // console.log("IndividualGamePage game: ", game);
 
   return (
     <>
@@ -95,16 +98,21 @@ export default async function IndividualGamePage({ params }) {
             <div className="screenshots-box border h-auto p-1 text-center">
               <h3>Screenies</h3>
               <div className="screenshots-container flex flex-row overflow-scroll gap-4 p-1 border">
-                {game.screenshots?.map((image) => (
-                  <Image
-                    key={image.id}
-                    src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.jpg`}
-                    alt={"screenshot"}
-                    width={1280}
-                    height={720}
-                    className="game-screenshot-image max-w-none h-[20rem]"
-                  />
-                ))}
+                {game.screenshots?.map(
+                  (image) => (
+                    console.log("image id, ", image.image_id),
+                    (
+                      <Image
+                        key={image.id}
+                        src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.jpg`}
+                        alt={"screenshot"}
+                        width={1280}
+                        height={720}
+                        className="game-screenshot-image max-w-none h-[20rem]"
+                      />
+                    )
+                  )
+                )}
               </div>
             </div>
             <Link href={`${game.url}`}>See {game.name} on IGDB</Link>
