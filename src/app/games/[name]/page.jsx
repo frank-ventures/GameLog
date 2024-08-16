@@ -17,12 +17,14 @@ import QuantumSpinner from "@/src/components/ldrsSpinners";
 export default async function IndividualGamePage({ params }) {
   const bearer = await GetBearerToken();
   // Get the slug from the url, to search the API:
+  console.log("game page params, ", params);
+  console.log("game page bearer, ", bearer);
   const gameName = params.name;
 
   let game;
   try {
     console.log("Indigamepage: I am trying to fetch a game");
-    game = await FetchIndividualGame(bearer, gameName);
+    game = await FetchIndividualGame(gameName);
     console.log("Indigamepage, I have fetched game successfully!");
   } catch (error) {
     console.error("Error fetching games:", error);
@@ -42,7 +44,7 @@ export default async function IndividualGamePage({ params }) {
             place={"gamePage"}
           />
           <div className="individual-game-container p-2 flex flex-col gap-4">
-            <SignedIn>
+            {/* <SignedIn>
               <Suspense fallback={QuantumSpinner}>
                 <ToggleFavouriteGameButton
                   GameID={game.id}
@@ -50,7 +52,8 @@ export default async function IndividualGamePage({ params }) {
                   GameSlug={game.slug}
                 />
               </Suspense>
-            </SignedIn>
+            </SignedIn> */}
+            <p>Game bearer: {bearer}</p>
             <div className="game-summary border-black border-2 p-2 overflow-scroll max-h-32">
               <h2>Summary</h2>
 

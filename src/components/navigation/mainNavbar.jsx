@@ -109,7 +109,7 @@ export function NavBarLinks({ setIsOpen, window, userId }) {
         <SignedIn>
           <li>
             <Link
-              href={`/profile/${userId}`}
+              href={`/profile/you`}
               className="fancy-link"
               onClick={setIsOpen}
             >

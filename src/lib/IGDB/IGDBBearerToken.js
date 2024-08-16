@@ -11,7 +11,7 @@ export default async function GetBearerToken() {
     const response = await fetch(
       `https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`,
       {
-        method: "POST"
+        method: "POST",
       }
     );
 
@@ -33,3 +33,6 @@ export default async function GetBearerToken() {
   }
   return await bearer.access_token;
 }
+
+// https://id.twitch.tv/oauth2/validate
+// Headers: Authorization: OAuth ${bearer}

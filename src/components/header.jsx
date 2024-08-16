@@ -6,9 +6,13 @@ import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import InsertNewUser from "@lib/Supabase/InsertUser";
 import CheckUser from "@lib/Supabase/CheckUser";
+// import GetBearerToken from "../lib/IGDB/IGDBBearerToken";
+import { getToken } from "@lib/IGDB/IGDBTokenManager";
 
 export default async function Header() {
   const user = await currentUser();
+  // const bearer = await GetBearerToken();
+  const bearer = await getToken();
 
   if (user) {
     const exists = await CheckUser(user.id);
@@ -30,7 +34,7 @@ export default async function Header() {
         </Link>
       </div>
 
-      <SearchBar />
+      <SearchBar Bearer={bearer} />
 
       <MainNavbar userId={user?.id} />
     </header>

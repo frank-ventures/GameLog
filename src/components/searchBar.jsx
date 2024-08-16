@@ -5,13 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 //  Database and IGDB
-import { BearerContext } from "@lib/IGDB/IGDBBearerTokenContext";
 import FetchGames from "@lib/IGDB/FetchGames";
 // Other
 import NoCoverImage from "@images/no-cover-image.jpg";
 
-export default function SearchBar() {
-  const [bearer, setBearer] = useContext(BearerContext);
+export default function SearchBar({ Bearer }) {
   const [games, setGames] = useState([]);
   const [resultIsOpen, setResultIsOpen] = useState(false);
   const [userQuery, setUserQuery] = useState("");
@@ -106,10 +104,10 @@ export default function SearchBar() {
     const searchGames = async () => {
       const searchLimit = 50;
 
-      const newGames = await FetchGames(bearer, userQuery, searchLimit);
+      const newGames = await FetchGames(userQuery, searchLimit);
       setGames(newGames);
 
-      // const newPlatforms = await FetchPlatforms(bearer, game);
+      // const newPlatforms = await FetchPlatforms(Bearer, game);
       // If there are games results, set the 'result open' div to true:
       setResultIsOpen(true);
       setCurrentIndex(-1);
@@ -119,7 +117,7 @@ export default function SearchBar() {
     // Call the function after the timer:
     let timer = setTimeout(() => {
       if (userQuery.length > 1) {
-        if (bearer) {
+        if (Bearer) {
           try {
             searchGames();
           } catch (error) {
@@ -133,7 +131,7 @@ export default function SearchBar() {
     }, 180);
 
     return () => clearTimeout(timer);
-  }, [bearer, userQuery]);
+  }, [Bearer, userQuery]);
 
   // -- -- -- --
   // -- Formatting the Date --
@@ -152,13 +150,13 @@ export default function SearchBar() {
       ref={searchRef}
       className="search-bar bg-slate-300 w-2/5 rounded-lg p-2 relative"
     >
-      {/* <p className="text-xs">For testing, Bearer Token: {bearer}</p> */}
+      <p className="text-xs">For testing, Bearer Token: {Bearer}</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
       >
-        {bearer ? (
+        {Bearer ? (
           <input
             type="text"
             id="searchQuery"
