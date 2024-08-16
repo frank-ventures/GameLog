@@ -1,6 +1,6 @@
 "use client";
 // React and Next
-import { useContext, useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -107,7 +107,6 @@ export default function SearchBar({ Bearer }) {
       const newGames = await FetchGames(userQuery, searchLimit);
       setGames(newGames);
 
-      // const newPlatforms = await FetchPlatforms(Bearer, game);
       // If there are games results, set the 'result open' div to true:
       setResultIsOpen(true);
       setCurrentIndex(-1);
@@ -150,7 +149,6 @@ export default function SearchBar({ Bearer }) {
       ref={searchRef}
       className="search-bar bg-slate-300 w-2/5 rounded-lg p-2 relative"
     >
-      <p className="text-xs">For testing, Bearer Token: {Bearer}</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();

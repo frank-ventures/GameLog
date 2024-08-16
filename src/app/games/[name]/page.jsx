@@ -10,15 +10,11 @@ import { SignedIn } from "@clerk/nextjs";
 import Hero from "@/src/components/hero";
 import NoCoverImage from "@images/no-cover-image.jpg";
 import CoverImage from "@/src/components/CoverImage";
-import GetBearerToken from "@/src/lib/IGDB/IGDBBearerToken";
 import { Suspense } from "react";
 import QuantumSpinner from "@/src/components/ldrsSpinners";
 
 export default async function IndividualGamePage({ params }) {
-  const bearer = await GetBearerToken();
   // Get the slug from the url, to search the API:
-  console.log("game page params, ", params);
-  console.log("game page bearer, ", bearer);
   const gameName = params.name;
 
   let game;
@@ -53,7 +49,6 @@ export default async function IndividualGamePage({ params }) {
                 />
               </Suspense>
             </SignedIn> */}
-            <p>Game bearer: {bearer}</p>
             <div className="game-summary border-black border-2 p-2 overflow-scroll max-h-32">
               <h2>Summary</h2>
 

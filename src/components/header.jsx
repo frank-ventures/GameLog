@@ -13,6 +13,8 @@ export default async function Header() {
   const user = await currentUser();
   // const bearer = await GetBearerToken();
   const bearer = await getToken();
+  // const response = await fetch(`${process.env.URL}/api/IGDBtoken`);
+  // const { token } = await response.json();
 
   if (user) {
     const exists = await CheckUser(user.id);
