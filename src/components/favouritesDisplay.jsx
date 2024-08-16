@@ -1,52 +1,64 @@
 "use client";
-// React and Next
-// import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
-// Components
-import ToggleFavouriteGameButton from "./toggleFavouriteButton";
-// // import TestMoreData from "./testGetMoreData";
-//  Database and IGDB
-import NewLogWrapper from "./NewLogWrapper.jsx";
-import { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import QuantumSpinner from "./ldrsSpinners";
+import FetchIndividualGame from "@/src/lib/IGDB/FetchIndividualGame";
+import FetchFavourites from "../lib/Supabase/FetchFavourites";
 
-export default function FavouritesDisplay({ UserFaves, UserID }) {
+const UserFaveItem = React.lazy(() => import("./UserFaveItem"));
+
+export default function FavouritesDisplay({ UserID, Bearer }) {
+  const [userFaves, setUserFaves] = useState([]);
+  const [userFavesArray, setUserFavesArray] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log("logging user faves array, ", userFavesArray);
+  }, [userFavesArray]);
+
+  useEffect(() => {
+    async function fetchUserFavesOnIGDB() {
+      const fetchedFaves = await Promise.all(
+        userFaves.map((fave) => FetchIndividualGame(fave.game_slug))
+      );
+      setUserFavesArray(fetchedFaves);
+    }
+
+    if (userFaves.length > 0) {
+      fetchUserFavesOnIGDB();
+    }
+  }, [userFaves, Bearer]);
+
+  useEffect(() => {
+    async function fetchUserFaves() {
+      try {
+        const response = await FetchFavourites(UserID);
+        setUserFaves(await response);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch user favorites", error);
+        setLoading(false);
+      }
+    }
+
+    fetchUserFaves();
+  }, [UserID]);
+
+  if (loading) {
+    return <QuantumSpinner />;
+  }
+
   return (
     <>
       <div className="user-favourites flex flex-col gap-2 mx-4 border border-gray-400">
-        {UserFaves ? (
-          UserFaves.map((fave) => {
-            return (
-              <div
-                className="individual-favourite flex flex-col border-b-[1px] border-gray-600"
-                key={fave.id}
-              >
-                <div className="game-fave-title flex flex-col w-full justify-center items-center p-2">
-                  <h3 className="text-center">
-                    <Link href={`/games/${fave.game_slug}`}>
-                      {fave.game_name}
-                    </Link>
-                  </h3>
-                  <Suspense fallback={<QuantumSpinner />}>
-                    <ToggleFavouriteGameButton
-                      GameID={fave.igdb_game_id}
-                      GameName={fave.game_name}
-                    />
-                  </Suspense>
-                </div>
-                <div className="game-fave-log flex flex-col  gap-2 w-full p-2">
-                  <h3>Logs</h3>
-                  <NewLogWrapper
-                    UserID={UserID}
-                    IGDBGameID={fave.igdb_game_id}
-                  />
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <p>uh oh. Something went wrong. Tell Frank</p>
-        )}
+        {userFaves.map((fave, index) => (
+          <Suspense fallback={"Loading..."} key={fave.id}>
+            <UserFaveItem
+              fave={fave}
+              userFavesArray={userFavesArray}
+              UserID={UserID}
+            />
+          </Suspense>
+        ))}
       </div>
     </>
   );
