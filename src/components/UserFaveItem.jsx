@@ -9,7 +9,7 @@ function UserFaveItem({ fave, userFavesArray, UserID }) {
   const [matchedItem, setMatchedItem] = useState();
 
   useEffect(() => {
-    console.log("UserFaveItem, ", userFavesArray);
+    console.log("**UserFaveItem logging userFavesArray: ", userFavesArray);
 
     setMatchedItem(
       userFavesArray.find((eachItem) => eachItem.slug == fave.game_slug)

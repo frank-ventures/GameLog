@@ -9,14 +9,14 @@ export default async function FetchGames(userQuery, limit) {
 
   // const bearer = await GetBearerToken();
   const bearer = await getToken();
-  console.log("bearer in fetchgames ", bearer);
+  console.log("---Bearer--- in fetchgames: ", bearer);
   const body = userQuery
     ? `fields id, artworks.url, cover.id, cover.image_id, first_release_date, genres.*, name, platforms.name, screenshots.id, screenshots.image_id, similar_games.*, slug, url;  where name ~ *"${userQuery}"*; sort rating desc;`
     : "fields *;";
   const searchLimit = limit ? `limit ${limit};` : "limit 10;";
 
   if (bearer) {
-    console.log(bearer);
+    console.log("---Bearer--- in fetchgames ", bearer);
     const response = await fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {

@@ -36,7 +36,7 @@ export default function UserProfilePage() {
   }, []);
 
   useEffect(() => {
-    console.log(userID);
+    console.log("Profile Test Page UserID: ", userID);
     async function fetchData() {
       // Simulate fetching user favorites from the database
       const response = await FetchFavourites(userID.id); // Replace with actual API call

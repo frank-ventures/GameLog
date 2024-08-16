@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 // A couple of variables which we'll use across our functions:
 let cachedToken = null;
 let tokenExpirationTime = null;
@@ -30,6 +32,8 @@ async function fetchNewToken() {
   tokenExpirationTime.setSeconds(
     tokenExpirationTime.getSeconds() + data.expires_in
   );
+  console.log("This new bearer token is: ", cachedToken);
+
   console.log("This bearer expiration time is ", tokenExpirationTime);
   return cachedToken;
 }

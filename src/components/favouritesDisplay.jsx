@@ -12,7 +12,10 @@ export default function FavouritesDisplay({ UserID, Bearer }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("logging user faves array, ", userFavesArray);
+    console.log(
+      "** FavouritesDisplay: Logging user faves array: ",
+      userFavesArray
+    );
   }, [userFavesArray]);
 
   useEffect(() => {
