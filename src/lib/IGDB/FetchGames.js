@@ -9,7 +9,7 @@ export default async function FetchGames(userQuery, limit) {
 
   // const bearer = await GetBearerToken();
   // const bearer = await getToken();
-
+  console.log("url is, ", process.env.URL);
   const response = await fetch(`${process.env.URL}/api/IGDBtoken`, {
     headers: {
       "Cache-Control": "no-store", // Prevent caching
