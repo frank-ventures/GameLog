@@ -108,3 +108,5 @@ This forced me down a _real headscratcher_ of a solution-finding mission, as som
 
 very useful thing was = cache: "no-store",
 maybe not so useful thing was = export const dynamic = "force-dynamic";
+
+actually maybe it's useful...
