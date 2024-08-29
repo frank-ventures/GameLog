@@ -15,13 +15,16 @@ export default async function Header() {
   const bearer = await getToken();
   // const response = await fetch(`${process.env.URL}/api/IGDBtoken`);
   // const { token } = await response.json();
+  console.log("Header: Is user null?, ", user ? "no" : "yes");
 
-  if (user) {
+  if (user != null) {
+    // console.log("The current user (in the Header if statement) is, ", user);
     const exists = await CheckUser(user.id);
     if (exists == undefined) {
       InsertNewUser(user.id, user.username);
     }
   }
+
   // console.log(user);
   // console.log(user.id);
   return (

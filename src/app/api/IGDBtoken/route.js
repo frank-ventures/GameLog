@@ -5,15 +5,17 @@ let tokenExpirationTime = null;
 
 const clientId = process.env.TWITCH_TV_ID;
 const clientSecret = process.env.TWITCH_TV_SECRET;
+const apiSecret = process.env.API_SECRET;
 
 async function fetchNewToken() {
   const response = await fetch(
     `https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`,
     {
       method: "POST",
-      headers: {
-        "Cache-Control": "no-store", // Prevent caching
-      },
+      cache: "no-store",
+      // headers: {
+      //   "Cache-Control": "no-store", // Prevent caching. Probably useless here compared to above
+      // },
     }
   );
 
@@ -28,6 +30,7 @@ async function fetchNewToken() {
 
   const data = await response.json();
   console.log("Fetch Response status:", response.status);
+  console.log("Fetch Response token (line 31 route.js):", data.access_token);
 
   cachedToken = data.access_token;
   console.log("'New' token fetched. Now validating...");
@@ -43,22 +46,30 @@ async function fetchNewToken() {
   tokenExpirationTime.setSeconds(
     tokenExpirationTime.getSeconds() + data.expires_in
   );
-  console.log("This new bearer token is: ", cachedToken);
+  console.log("route.js ln47: This new bearer token is: ", cachedToken);
 
   console.log("This bearer expiration time is ", tokenExpirationTime);
   return cachedToken;
 }
 
 async function validateToken() {
+  console.log("Validating this  token:, ", cachedToken);
   const response = await fetch("https://id.twitch.tv/oauth2/validate", {
     method: "GET",
+    cache: "no-store",
     headers: {
       Authorization: `Bearer ${cachedToken}`,
     },
   });
+  console.log(
+    "Response result of validateToken is: ",
+    response.status,
+    response.statusText
+  );
 
   if (response.ok) {
     const data = await response.json();
+    console.log("this is the validation response: ", data);
     const currentTime = new Date();
     tokenExpirationTime = new Date(
       currentTime.getTime() + data.expires_in * 1000
@@ -104,9 +115,14 @@ async function getToken() {
 export async function GET(request, response) {
   try {
     console.log("API called, running getToken...");
+    console.log("API headers, ", request.headers.get("authorization"));
+    const authcheck = request.headers.get("authorization");
     const token = await getToken();
     console.log("Returning token from API...");
-    return NextResponse.json({ token }, { status: 200 });
+    if (authcheck == apiSecret) {
+      return NextResponse.json({ token }, { status: 200 });
+    }
+    return NextResponse.json({ message: "bye" });
   } catch (error) {
     console.error("Error in token handler:", error);
     return NextResponse.json(

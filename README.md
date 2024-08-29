@@ -58,16 +58,6 @@ Using React `useRef()` was key. This code helped: [Using useRef to scroll throug
 
 As did [this code, to prevent the page from "bouncing" when a user scrolls](https://stackoverflow.com/questions/11039885/scrollintoview-causing-the-whole-page-to-move)
 
-### Once you've used arrow keys to select a list item, use 'Enter' to route to a new page
-
-The [Next.js docs were useful here](https://nextjs.org/docs/app/api-reference/functions/use-router) for the `useRouter` syntax.
-
-### The 'search results' div should scroll the currently selected result into view
-
-Using React `useRef()` was key. This code helped: [Using useRef to scroll through a list of results](https://codesandbox.io/p/sandbox/react-autocomplete-forked-0o1hll?file=%2Fsrc%2Fcomponents%2FAutocomplete.js%3A60%2C15-62%2C25)
-
-As did [this code, to prevent the page from "bouncing" when a user scrolls](https://stackoverflow.com/questions/11039885/scrollintoview-causing-the-whole-page-to-move)
-
 ### When the Hamburger navigation menu is open, I should be able to click/tap the area outside of the menu, to close the menu. _(As well as press the "X" button to close it)_
 
 I tried to implement the same code from the `searchbar`, which in that case adds an eventListener to the document _(via a useEffect)_ basically saying;
@@ -89,3 +79,32 @@ Thanks to input from Isaac and Darren: quite simply add an `onClick` _(instead o
 Annoyingly, when you search for a game, the result might be displaying a GBA game when you actually are looking for a PC game. To fix this required more wrangling with the API.
 
 [Thanks to this project](https://github.com/akuyra1/week12-assignment/tree/main), the 'deeper dive' into the IGDB API was discovered and now platforms (and cover art!) displays on the search result.
+
+### Management of the IGDB Bearer Token needed handling in a better way
+
+An old habit from a [short-term bootcamp project](https://github.com/preciousdafitohwo/Week-5-Group-Project?tab=readme-ov-file) was to fetch a brand new Bearer Token to allow interaction with the IGDB API on every page load/function call 👀
+
+_...bad_
+
+[Better behaviour](https://dev.twitch.tv/docs/authentication/) _(as per the docs... +1 for reading.)_ would be to:
+
+- Make an initial call to get a Bearer Token,
+- Store that token and its validation length (around 60 days),
+- Validate the token when making a call,
+- Only replace it when necessary.
+
+Benefits of this would be that the app uses just the one token, but multiple uses can concurrently use the app!
+
+This forced me down a _real headscratcher_ of a solution-finding mission, as some NextJS'y things **really** got in my way; namely, behaviour to do with caching responses from fetch requests.
+
+**Changes implemented:**
+
+- An API route create to separate out the logic.
+- Much improved module logic with functions for: `getToken`, `fetchNewToken`, `validateToken`, and to store the token.
+- FINALLY found a way to prevent Next.js from caching the bearer token and it's validation response (i think)
+- Added in some authentication so that if the user goes to the /api route in their web page, they get DEEE-NIED!
+
+[Using this webpage as a bit of guidance, I promptly ignored the use of middleware.js for now, but instead used an authorisation in the request.header, combined with a secret key in the .env](https://blog.tericcabrel.com/protect-your-api-routes-in-next-js-with-middleware/)
+
+very useful thing was = cache: "no-store",
+maybe not so useful thing was = export const dynamic = "force-dynamic";

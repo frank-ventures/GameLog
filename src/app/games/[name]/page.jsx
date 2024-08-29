@@ -75,7 +75,7 @@ export default async function IndividualGamePage({ params }) {
                   >
                     <Link href={`/games/${similar.slug}`}>
                       <CoverImage
-                        source={similar.cover.image_id}
+                        source={similar.cover?.image_id}
                         alt={`${similar.name} cover art`}
                         width={150}
                         height={200}

@@ -6,18 +6,21 @@
 
 export default async function FetchIndividualGame(gameName) {
   const clientId = process.env.TWITCH_TV_ID;
+  const apiSecret = process.env.API_SECRET;
+
   // OLD:
   // const bearer = await GetBearerToken();
   // NEW:
   // const bearer = await getToken();
   const response = await fetch(`${process.env.URL}/api/IGDBtoken`, {
     headers: {
-      "Cache-Control": "no-store", // Prevent caching
+      authorization: `${apiSecret}`,
     },
+    cache: "no-store",
   });
   const { token } = await response.json();
 
-  console.log("---Bearer--- in fetchindividualgames: ", token);
+  console.log("---Bearer--- in fetchindividualgame: ", token);
 
   const body = gameName
     ? `fields id, cover.id, cover.image_id, first_release_date, genres.name, name, platforms.name, screenshots.id, screenshots.image_id, similar_games.id, similar_games.cover.image_id, similar_games.name, similar_games.slug,  slug, summary, url; where slug ="${gameName}";`

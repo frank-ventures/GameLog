@@ -6,14 +6,17 @@
 
 export default async function FetchGames(userQuery, limit) {
   const clientId = process.env.TWITCH_TV_ID;
+  const apiSecret = process.env.API_SECRET;
 
   // const bearer = await GetBearerToken();
   // const bearer = await getToken();
   console.log("url is, ", process.env.URL);
   const response = await fetch(`${process.env.URL}/api/IGDBtoken`, {
     headers: {
-      "Cache-Control": "no-store", // Prevent caching
+      // "Cache-Control": "no-store", // Prevent caching. Probably unecessary?
+      authorization: `${apiSecret}`,
     },
+    cache: "no-store",
   });
   const { token } = await response.json();
 
