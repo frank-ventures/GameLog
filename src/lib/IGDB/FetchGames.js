@@ -10,14 +10,17 @@ export default async function FetchGames(userQuery, limit) {
 
   // const bearer = await GetBearerToken();
   // const bearer = await getToken();
-  console.log("url is, ", process.env.URL);
-  const response = await fetch(`${process.env.URL}/api/IGDBtoken`, {
-    headers: {
-      // "Cache-Control": "no-store", // Prevent caching. Probably unecessary?
-      authorization: `${apiSecret}`,
-    },
-    cache: "no-store",
-  });
+  console.log("url is, ", process.env.NEXT_PUBLIC_WEBSITE_URL);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/IGDBtoken`,
+    {
+      headers: {
+        // "Cache-Control": "no-store", // Prevent caching. Probably unecessary?
+        authorization: `${apiSecret}`,
+      },
+      cache: "no-store",
+    }
+  );
   const { token } = await response.json();
 
   console.log("---Bearer--- in fetchgames: ", token);

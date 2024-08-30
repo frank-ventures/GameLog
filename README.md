@@ -106,7 +106,8 @@ This forced me down a _real headscratcher_ of a solution-finding mission, as som
 
 [Using this webpage as a bit of guidance, I promptly ignored the use of middleware.js for now, but instead used an authorisation in the request.header, combined with a secret key in the .env](https://blog.tericcabrel.com/protect-your-api-routes-in-next-js-with-middleware/)
 
-very useful thing was = cache: "no-store",
+very useful thing was = [cache: "no-store",
+](https://nextjs.org/docs/app/building-your-application/caching), but it was hard for me to nail it down, and find exactly where to put it (and to be honest I don't think I have it in the right place yet.) [This stack overflow post led me to it](https://stackoverflow.com/questions/77475455/nextjs-14-appears-to-be-caching-api-request-data-even-when-data-has-changed)
 maybe not so useful thing was = export const dynamic = "force-dynamic";
 
-actually maybe it's useful...
+actually, after deployment, maybe it's useful...

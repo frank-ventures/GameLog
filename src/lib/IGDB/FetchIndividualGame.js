@@ -12,12 +12,15 @@ export default async function FetchIndividualGame(gameName) {
   // const bearer = await GetBearerToken();
   // NEW:
   // const bearer = await getToken();
-  const response = await fetch(`${process.env.URL}/api/IGDBtoken`, {
-    headers: {
-      authorization: `${apiSecret}`,
-    },
-    cache: "no-store",
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/IGDBtoken`,
+    {
+      headers: {
+        authorization: `${apiSecret}`,
+      },
+      cache: "no-store",
+    }
+  );
   const { token } = await response.json();
 
   console.log("---Bearer--- in fetchindividualgame: ", token);
