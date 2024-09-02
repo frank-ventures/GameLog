@@ -9,8 +9,12 @@ export default async function GetDBUserID() {
   const user = await currentUser();
 
   // Query database with clerk id:
-  const DBID = await CheckUser(user.id);
+  if (user != null) {
+    const DBID = await CheckUser(user.id);
+
+    return await DBID;
+  }
 
   // Return database user object, which contains their id:
-  return await DBID;
+  return;
 }

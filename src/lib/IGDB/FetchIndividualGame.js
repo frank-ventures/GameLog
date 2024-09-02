@@ -2,28 +2,39 @@
 //OLD:
 // import GetBearerToken from "./IGDBBearerToken";
 //NEW:
-import { getToken } from "@lib/IGDB/IGDBTokenManager";
+// import { getToken } from "@lib/IGDB/IGDBTokenManager";
 
-export default async function FetchIndividualGamegameName(gameName) {
+export default async function FetchIndividualGame(gameName) {
   const clientId = process.env.TWITCH_TV_ID;
+  const apiSecret = process.env.API_SECRET;
+
   // OLD:
   // const bearer = await GetBearerToken();
   // NEW:
-  const bearer = await getToken();
+  // const bearer = await getToken();
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/IGDBtoken`,
+    {
+      headers: {
+        authorization: `${apiSecret}`,
+      },
+      cache: "no-store",
+    }
+  );
+  const { token } = await response.json();
 
-  console.log("---Bearer--- in fetchindividualgames: ", bearer);
+  console.log("---Bearer--- in fetchindividualgame: ", token);
 
   const body = gameName
     ? `fields id, cover.id, cover.image_id, first_release_date, genres.name, name, platforms.name, screenshots.id, screenshots.image_id, similar_games.id, similar_games.cover.image_id, similar_games.name, similar_games.slug,  slug, summary, url; where slug ="${gameName}";`
     : "fields *;";
 
-  if (bearer) {
-    console.log("---Bearer--- in fetchindividualgames: ", bearer);
+  if (token) {
     const response = await fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
         "Client-ID": clientId,
-        Authorization: `Bearer ${bearer}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: `${body}`,

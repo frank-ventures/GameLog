@@ -1,21 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
         hostname: "images.igdb.com",
         port: "",
-        pathname: "/**"
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "img.clerk.com",
         port: "",
-        pathname: "/**"
-      }
-    ]
-  }
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -7,15 +7,16 @@ import PageBackground from "@/src/components/PageBackground";
 
 // Database and IGDB
 import GetDBUserID from "@/src/lib/Supabase/DBUserID";
-import { getToken } from "@lib/IGDB/IGDBTokenManager";
 // Clerk
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function UserProfilePage() {
   const user = await currentUser();
-  // const bearer = await GetBearerToken();
-  const bearer = await getToken();
   const userDBID = await GetDBUserID();
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/IGDBtoken`
+  );
+  const { token } = await response.json();
 
   if (user) {
     return (
@@ -27,9 +28,7 @@ export default async function UserProfilePage() {
         />
         <div className="user-favourites flex flex-col gap-2 mx-4">
           <h2>Your Favourited Games</h2>
-          <p>And your bearer token.....maybe: {bearer}</p>
-
-          <FavouritesDisplay UserID={userDBID.id} Bearer={bearer} />
+          <FavouritesDisplay UserID={userDBID.id} Bearer={token} />
         </div>
       </>
     );

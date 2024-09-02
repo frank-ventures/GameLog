@@ -10,15 +10,11 @@ import { SignedIn } from "@clerk/nextjs";
 import Hero from "@/src/components/hero";
 import NoCoverImage from "@images/no-cover-image.jpg";
 import CoverImage from "@/src/components/CoverImage";
-import GetBearerToken from "@/src/lib/IGDB/IGDBBearerToken";
 import { Suspense } from "react";
 import QuantumSpinner from "@/src/components/ldrsSpinners";
 
 export default async function IndividualGamePage({ params }) {
-  const bearer = await GetBearerToken();
   // Get the slug from the url, to search the API:
-  console.log("game page params, ", params);
-  console.log("game page bearer, ", bearer);
   const gameName = params.name;
 
   let game;
@@ -44,7 +40,7 @@ export default async function IndividualGamePage({ params }) {
             place={"gamePage"}
           />
           <div className="individual-game-container p-2 flex flex-col gap-4">
-            {/* <SignedIn>
+            <SignedIn>
               <Suspense fallback={QuantumSpinner}>
                 <ToggleFavouriteGameButton
                   GameID={game.id}
@@ -52,8 +48,7 @@ export default async function IndividualGamePage({ params }) {
                   GameSlug={game.slug}
                 />
               </Suspense>
-            </SignedIn> */}
-            <p>Game bearer: {bearer}</p>
+            </SignedIn>
             <div className="game-summary border-black border-2 p-2 overflow-scroll max-h-32">
               <h2>Summary</h2>
 
@@ -80,7 +75,7 @@ export default async function IndividualGamePage({ params }) {
                   >
                     <Link href={`/games/${similar.slug}`}>
                       <CoverImage
-                        source={similar.cover.image_id}
+                        source={similar.cover?.image_id}
                         alt={`${similar.name} cover art`}
                         width={150}
                         height={200}
