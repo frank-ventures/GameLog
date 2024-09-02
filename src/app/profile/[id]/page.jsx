@@ -13,7 +13,9 @@ import { currentUser } from "@clerk/nextjs/server";
 export default async function UserProfilePage() {
   const user = await currentUser();
   const userDBID = await GetDBUserID();
-  const response = await fetch(`${process.env.URL}/api/IGDBtoken`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/IGDBtoken`
+  );
   const { token } = await response.json();
 
   if (user) {

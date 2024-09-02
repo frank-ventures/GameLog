@@ -40,7 +40,7 @@ export default async function IndividualGamePage({ params }) {
             place={"gamePage"}
           />
           <div className="individual-game-container p-2 flex flex-col gap-4">
-            {/* <SignedIn>
+            <SignedIn>
               <Suspense fallback={QuantumSpinner}>
                 <ToggleFavouriteGameButton
                   GameID={game.id}
@@ -48,7 +48,7 @@ export default async function IndividualGamePage({ params }) {
                   GameSlug={game.slug}
                 />
               </Suspense>
-            </SignedIn> */}
+            </SignedIn>
             <div className="game-summary border-black border-2 p-2 overflow-scroll max-h-32">
               <h2>Summary</h2>
 

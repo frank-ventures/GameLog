@@ -13,9 +13,9 @@ export default async function FetchGames(userQuery, limit) {
   console.log("url is, ", process.env.NEXT_PUBLIC_WEBSITE_URL);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/IGDBtoken`,
+
     {
       headers: {
-        // "Cache-Control": "no-store", // Prevent caching. Probably unecessary?
         authorization: `${apiSecret}`,
       },
       cache: "no-store",

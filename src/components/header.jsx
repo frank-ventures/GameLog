@@ -6,15 +6,25 @@ import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import InsertNewUser from "@lib/Supabase/InsertUser";
 import CheckUser from "@lib/Supabase/CheckUser";
-// import GetBearerToken from "../lib/IGDB/IGDBBearerToken";
-import { getToken } from "@lib/IGDB/IGDBTokenManager";
 
 export default async function Header() {
   const user = await currentUser();
-  // const bearer = await GetBearerToken();
-  const bearer = await getToken();
-  // const response = await fetch(`${process.env.URL}/api/IGDBtoken`);
-  // const { token } = await response.json();
+
+  // At the moment the following token fetch is used because we use it in the Search Bar to set a loading state. That's probably silly and will get removed.
+  const apiSecret = process.env.API_SECRET;
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/IGDBtoken`,
+
+    {
+      headers: {
+        authorization: `${apiSecret}`,
+      },
+      cache: "no-store",
+    }
+  );
+  const data = await response.json();
+  const bearer = data.token;
+
   console.log("Header: Is user null?, ", user ? "no" : "yes");
 
   if (user != null) {

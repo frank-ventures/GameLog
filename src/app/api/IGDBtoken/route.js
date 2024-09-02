@@ -1,23 +1,35 @@
+// --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- Imports --- --- --- ---
+// --- --- --- --- --- --- --- --- --- ---
+import GetBearerFromSB from "@/src/lib/Supabase/GetBearerFromSB";
+import UpdateBearerToSB from "@/src/lib/Supabase/UpdateBearerToSB";
 import { NextResponse } from "next/server";
 
+// --- --- --- --- Important --- --- ---
 export const dynamic = "force-dynamic";
 
+// --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- Variables --- --- ---
+// --- --- --- --- --- --- --- --- --- ---
 let cachedToken = null;
 let tokenExpirationTime = null;
 
+// --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- ENVs --- --- --- ---
+// --- --- --- --- --- --- --- --- --- ---
 const clientId = process.env.TWITCH_TV_ID;
 const clientSecret = process.env.TWITCH_TV_SECRET;
 const apiSecret = process.env.API_SECRET;
 
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- Fetch a new token --- --- --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
 async function fetchNewToken() {
+  console.log("fetchNewToken() called. Getting a new one from Twitch...");
   const response = await fetch(
     `https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`,
     {
       method: "POST",
-      cache: "no-store",
-      // headers: {
-      //   "Cache-Control": "no-store", // Prevent caching. Probably useless here compared to above
-      // },
     }
   );
 
@@ -31,12 +43,12 @@ async function fetchNewToken() {
   }
 
   const data = await response.json();
-  console.log("Fetch Response status:", response.status);
-  console.log("Fetch Response token (line 31 route.js):", data.access_token);
-
+  console.log("FetchNewToken Response status:", response.status);
+  console.log("FetchNewToken success! (line 31 route.js):");
   cachedToken = data.access_token;
-  console.log("'New' token fetched. Now validating...");
-  //validate here
+  console.log("New token fetched.");
+
+  // Validate here
   const isValid = await validateToken();
   if (!isValid) {
     console.log("Token is invalid, poops...");
@@ -48,14 +60,18 @@ async function fetchNewToken() {
   tokenExpirationTime.setSeconds(
     tokenExpirationTime.getSeconds() + data.expires_in
   );
-  console.log("route.js ln47: This new bearer token is: ", cachedToken);
-
   console.log("This bearer expiration time is ", tokenExpirationTime);
+
+  console.log("Setting new token in Supabase Database...");
+  UpdateBearerToSB(cachedToken, tokenExpirationTime);
   return cachedToken;
 }
 
-async function validateToken() {
-  console.log("Validating this  token:, ", cachedToken);
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- Validate the token --- --- --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+export async function validateToken() {
+  console.log("Validating token...");
   const response = await fetch("https://id.twitch.tv/oauth2/validate", {
     method: "GET",
     cache: "no-store",
@@ -71,7 +87,7 @@ async function validateToken() {
 
   if (response.ok) {
     const data = await response.json();
-    console.log("this is the validation response: ", data);
+    console.log("This is the validation response: ", data);
     const currentTime = new Date();
     tokenExpirationTime = new Date(
       currentTime.getTime() + data.expires_in * 1000
@@ -96,28 +112,77 @@ async function validateToken() {
   }
 }
 
-async function getToken() {
-  if (!cachedToken || new Date() > tokenExpirationTime) {
-    console.log("Fetching new token...");
-
-    return await fetchNewToken();
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- Check Supabase for Token --- --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+export async function CheckSupabaseForToken() {
+  console.log("Checking supabase...");
+  const supaBearer = await GetBearerFromSB();
+  if (!supaBearer) {
+    throw new Error("Bad response from GetBearerFromSB()");
   }
+  console.log("Supabase token found!");
+  return supaBearer;
+}
 
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- Main GetToken function --- --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+export async function getToken() {
+  // First check if there's a stored token here already:
+  if (!cachedToken || new Date() > tokenExpirationTime) {
+    console.log("getToken did not detect a cachedToken, or the expiry is up.");
+    // Second check Supabase for an entry
+    console.log("Checking SupaBase for a token...");
+    const supaBearer = await CheckSupabaseForToken();
+
+    if (supaBearer) {
+      console.log("Supabase Bearer found!");
+      // Check if the current date is greater than the stored expiration time
+      if (new Date() > supaBearer.expiration) {
+        console.log(
+          "Current Date is newer than Supabase Bearer expiration date."
+        );
+        console.log("Fetching a new Token...");
+        return await fetchNewToken();
+      }
+      // If it's all groovy, go ahead:
+      cachedToken = supaBearer.string;
+      tokenExpirationTime = supaBearer.expiration;
+    } else {
+      console.log(
+        "There was no result in the database, so we're trying to fetch a new token:"
+      );
+      console.log("Calling fetchNewToken...");
+      return await fetchNewToken();
+    }
+  }
+  // If there's a token currently in storage, move to this:
+  console.log("(Line 160) Validating Supabase Bearer...");
   const isValid = await validateToken();
   if (!isValid) {
     console.log("Token is invalid, fetching new token...");
-
     return await fetchNewToken();
   }
-  console.log("Returning cachedToken...");
-
+  console.log("Validity check passed. Returning cachedToken...");
   return cachedToken;
 }
 
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- --- Get solely the Token Expiration --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+export async function getExpirationTime() {
+  console.log("getExpiration called, its ,", tokenExpirationTime);
+  console.log({ tokenExpirationTime });
+  return tokenExpirationTime?.toString();
+}
+
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- Main GET endpoint --- --- --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- ---
 export async function GET(request, response) {
   try {
     console.log("API called, running getToken...");
-    console.log("API headers, ", request.headers.get("authorization"));
     const authcheck = request.headers.get("authorization");
     const token = await getToken();
     console.log("Returning token from API...");
