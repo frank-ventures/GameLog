@@ -9,7 +9,7 @@ export default async function RemoveFavouriteGame(userId, IGDBGameId) {
   const response = await db.query(
     `
     DELETE FROM 
-    favourites 
+    gamelog_favourites 
     WHERE user_id = $1 
     AND igdb_game_id = $2
     RETURNING *;`,

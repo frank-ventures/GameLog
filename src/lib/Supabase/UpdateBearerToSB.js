@@ -14,7 +14,7 @@ export default async function UpdateBearerToSB(string, expiration) {
   try {
     const response = await db.query(
       `
-      UPDATE bearer
+      UPDATE gamelog_bearer
       SET string = $1, expiration = $2
       WHERE id = 1
       RETURNING *`,

@@ -6,7 +6,7 @@ import { db } from "./db";
 export default async function FetchFavourites(userId) {
   const response = await db.query(
     `SELECT * 
-    FROM favourites 
+    FROM gamelog_favourites 
     WHERE user_id = $1;
     `,
     [userId]

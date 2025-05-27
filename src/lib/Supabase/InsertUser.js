@@ -8,7 +8,7 @@ export default async function InsertNewUser(clerkId, userName) {
 
   const response = await db.query(
     `
-    INSERT INTO users 
+    INSERT INTO gamelog_users 
     (clerk_id, username) 
     VALUES ($1, $2) RETURNING *`,
     [clerkId, userName]

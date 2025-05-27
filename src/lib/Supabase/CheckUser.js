@@ -6,7 +6,7 @@ import { db } from "./db";
 export default async function CheckUser(clerkId) {
   const response = await db.query(
     `
-    SELECT * FROM users 
+    SELECT * FROM gamelog_users 
     WHERE clerk_id = $1
     `,
     [clerkId]

@@ -11,7 +11,7 @@ export default async function InsertFavouriteGame(
 ) {
   const response = await db.query(
     `
-    INSERT INTO favourites
+    INSERT INTO gamelog_favourites
     (user_id, igdb_game_id, game_name, game_slug)
     VALUES
     ($1, $2, $3, $4)
