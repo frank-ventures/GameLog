@@ -7,9 +7,9 @@ export default async function CheckFavouriteExists(userId, IGDBGameId) {
   const response = await db.query(
     `
     SELECT
-        favourites.user_id, favourites.igdb_game_id
-        FROM favourites
-        WHERE favourites.user_id = $1 AND favourites.igdb_game_id = $2;
+        gamelog_favourites.user_id, gamelog_favourites.igdb_game_id
+        FROM gamelog_favourites
+        WHERE gamelog_favourites.user_id = $1 AND gamelog_favourites.igdb_game_id = $2;
     `,
     [userId, IGDBGameId]
   );

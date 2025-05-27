@@ -6,7 +6,7 @@ import { db } from "./db";
 export default async function InsertNewLog(IGDBGameId, userId, content) {
   const response = await db.query(
     `
-    INSERT INTO logs
+    INSERT INTO gamelog_logs
     (igdb_game_id, user_id, content)
     VALUES ($1, $2, $3)
     RETURNING *;`,

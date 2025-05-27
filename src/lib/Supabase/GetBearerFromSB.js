@@ -9,7 +9,7 @@ export default async function GetBearerFromSB() {
   try {
     const response = await db.query(
       `
-    SELECT * FROM bearer WHERE id = 1;
+    SELECT * FROM gamelog_bearer WHERE id = 1;
     `
     );
     const result = response.rows[0];
